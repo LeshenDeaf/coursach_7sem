@@ -3,8 +3,8 @@
 @section('content')
     @include('partials.header_text', ['text' => $user->name])
 
-    <div class="relative items-center">
-        <div class="rounded-xl bg-white shadow-lg w-1/2 mx-auto px-5 py-6 overflow-scroll">
+    <div class=" items-center">
+        <div class="rounded-xl bg-white shadow-lg w-1/2 mx-auto px-5 py-6">
             <form method="post" action="{{ route('admin.users.update', $user->id) }}">
                 @csrf
                 @method('PATCH')

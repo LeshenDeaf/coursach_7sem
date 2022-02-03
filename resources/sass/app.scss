@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.li_role {
+    @apply text-slate-800 py-1 px-2 hover:text-blue-900 hover:bg-gray-100 rounded-lg cursor-pointer border-transparent focus:border-transparent focus:ring-0 border-none focus:outline-none flex items-center justify-between;
+
+
+    .delete_role {
+        @apply bg-red-400 hover:bg-red-600 text-white content-center justify-center flex;
+
+        .x_del {
+            @apply w-4 h-4 mt-0.5;
+        }
+    }
+}
+
+.add_role, .delete_role {
+    @apply w-8 h-8 font-bold text-center  justify-center rounded-full #{!important};
+}
+
+
+
+.popup {
+    @apply z-10 w-full h-full bg-gray-900 bg-opacity-10 fixed top-0 left-0 ;
+
+    .window {
+        @apply w-1/2 mx-auto mt-8 bg-white rounded-xl shadow-2xl py-8 px-12 ;
+    }
+}
+
+.header_text {
+    @apply text-4xl font-normal leading-normal mt-0 mb-2 text-slate-700 text-center;
+}
