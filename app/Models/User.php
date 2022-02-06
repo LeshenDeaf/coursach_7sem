@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'roles'
     ];
 
     /**
@@ -47,6 +48,11 @@ class User extends Authenticatable
         return $this->belongsToMany(
             Role::class
         )->withTimestamps();
+    }
+
+    public function forms()
+    {
+        return $this->hasMany(Form::class);
     }
 
     public function isAdmin()
