@@ -32,5 +32,9 @@
 }
 
 .header_text {
-    @apply text-4xl font-normal leading-normal mt-0 mb-2 text-slate-700 text-center;
+    @apply text-4xl font-normal leading-normal mt-0 mb-2 text-slate-700;
+}
+
+.is-invalid {
+    @apply border-red-600 #{!important};
 }

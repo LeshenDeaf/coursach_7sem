@@ -50,11 +50,14 @@ const RolesApi = {
             text: $(that).html()
         };
 
+        $(this).remove();
+
         $("#roles").append(
             `<div class="li_role" name="${role.id}">
             <div class="role_info">${role.text}</div>
             <div class="delete_role"><span class="x_del">x</span></div>
-        </div>`
+            <input type="hidden" name="roles[]" value="${role.id}"
+            </div>`
         );
 
 
@@ -91,8 +94,6 @@ const togglePopup = function () {
 const fillList = function (div, responseData, listName = 'Roles') {
     $(div).html(`<h1 class="header_text">${listName}</h1>`);
 
-
-    console.table(responseData);
     responseData.forEach(element =>
         $(div).append(
             `<div class="li_role append_role" name="${element.id}">${element.id} - ${element.name} <br> ${element.description}</div>`
@@ -102,20 +103,21 @@ const fillList = function (div, responseData, listName = 'Roles') {
 
 
 $(".add_role").on("click", function() {
-    const button = $(this);
+    const parent = $(this).parent();
 
     RolesApi.getRoles(
-        response => fillList(
-            button.parent().find('.popup .window'),
-            response.data.filter(element =>
-                button.parent().find(`.li_role[name="${element.id}"]`).length === 0
+        response => {
+            fillList(
+                parent.find('.popup .window'),
+                response.data.filter(element =>
+                    parent.find(`.li_role[name="${element.id}"]`).length === 0
+                )
             )
-        ),
+        },
         alert
     );
 
     togglePopup.call(this);
-
 });
 
 $(".toggle_mobile").on('click', toggleMobileMenu)
@@ -127,6 +129,7 @@ $('body').on('click', function(event){
         && !$(event.target).is('.add_role')
     ){
         $(".popup").addClass("hidden");
+        $('.popup .window').html('')
     }
 });
 
