@@ -1,3 +1,3 @@
-<h1 class="header_text">
+<h1 class="header_text {{ $classes ?? '' }} ">
     {{ $text }}
 </h1>

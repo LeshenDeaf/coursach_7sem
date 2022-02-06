@@ -1,7 +1,7 @@
 <div class="text-slate-600 p-3">
     <div id="roles">
         {{ $label }}:
-        @foreach($values as $value)
+        @foreach($values ?? [] as $value)
         <div class="li_role" name="{{ $value->id }}">
             <div class="role_info">
                 {{ $value->id }} - {{ $value->name }}
@@ -9,6 +9,7 @@
                 {{ $value->description }}
             </div>
             <div class="delete_role"><span class="x_del">x</span></div>
+            <input type="hidden" name="roles[]" value="{{ $value->id }}">
         </div>
         @endforeach
     </div>

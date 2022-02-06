@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('partials.header_text', ['text' => $user->name])
+    @include('partials.header_text', ['text' => $user->name, 'classes' => 'text-center'])
 
-    <div class=" items-center">
+    <div class="items-center">
         <div class="rounded-xl bg-white shadow-lg w-1/2 mx-auto px-5 py-6">
             <form method="post" action="{{ route('admin.users.update', $user->id) }}">
                 @csrf
