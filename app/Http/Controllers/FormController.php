@@ -11,6 +11,10 @@ class FormController extends Controller
     {
         $forms = Form::with('fields')->get();
 
+        if ($forms->isEmpty()) {
+            return view('home.forms.create');
+        }
+
         return view('home.forms.index', compact('forms'));
     }
 
