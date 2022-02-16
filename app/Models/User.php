@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'roles'
+        'roles',
     ];
 
     /**
@@ -47,12 +47,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(
             Role::class
-        )->withTimestamps();
+        )->withTimestamps()->orderBy('id');
     }
 
-    public function forms()
+    public function forms(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Form::class);
+        return $this->hasMany(Form::class)->orderBy('id');
     }
 
     public function isAdmin()
