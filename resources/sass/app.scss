@@ -4,11 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
-.li_role {
+.li_role, .li_field {
     @apply text-slate-800 py-1 px-2 hover:text-blue-900 hover:bg-gray-100 rounded-lg cursor-pointer border-transparent focus:border-transparent focus:ring-0 border-none focus:outline-none flex items-center justify-between;
 
 
-    .delete_role {
+    .delete_role, .remove_field {
         @apply bg-red-400 hover:bg-red-600 text-white content-center justify-center flex;
 
         .x_del {
@@ -17,7 +17,7 @@
     }
 }
 
-.add_role, .delete_role {
+.add_role, .delete_role, .add_field, .remove_field {
     @apply w-8 h-8 font-bold text-center  justify-center rounded-full #{!important};
 }
 
