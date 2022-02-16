@@ -20,13 +20,30 @@
 
     <nav class="hidden md:flex space-x-10">
         <div class="relative">
-            @if(auth()->check() && auth()->user()->isAdmin())
-                <a href="{{ route('admin.users.index') }}"
-                   class="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            @auth
+                <?php
+
+                function getTextColor(string $routeName): string
+                {
+                    $curRouteName = \Route::currentRouteName();
+
+                    return $curRouteName === $routeName ? '700' : '500';
+                }
+
+                ?>
+                @if(auth()->user()->isAdmin())
+                    <a href="{{ route('admin.users.index') }}"
+                       class="text-gray-{{ getTextColor('admin.users.index') }} group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                       aria-expanded="false">
+                        {{ __('List of users') }}
+                    </a>
+                @endif
+                <a href="{{ route('home.forms.index') }}"
+                   class="ml-8 text-gray-{{ getTextColor('home.forms.index') }} group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                    aria-expanded="false">
-                    {{ __('List of users') }}
+                    {{ __('Forms') }}
                 </a>
-            @endif
+            @endauth
         </div>
     </nav>
 
