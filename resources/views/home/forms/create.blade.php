@@ -17,7 +17,7 @@
                 </a>
 
                 @include('admin.users.partials.input', ['label' => 'Name', 'name' => 'name', 'isRequired' => true])
-                @include('admin.users.partials.list_input', ['label' => 'Fields'])
+                @include('home.forms.partials.list_input', ['label' => 'Fields', 'fields' => [new \App\Models\Field(['label' => 'When paid', 'type' => 'date'])]])
 
                 <button class="rounded-xl bg-blue-500 text-white w-full py-2 my-2 hover:bg-blue-600 transition shadow-lg hover:shadow-none">
                     {{ __('Submit') }}
@@ -25,5 +25,4 @@
             </form>
         </div>
     </div>
-
 @endsection
