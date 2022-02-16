@@ -10,11 +10,17 @@ class Field extends Model
 {
     use HasFactory;
 
+    public static array $types = [
+        'price' => 1,
+        'counter_value' => 2,
+        'date' => 3,
+    ];
+
     /**
      * @var string[]
      */
     protected $fillable = [
-        'label',
+        'label', 'type',
     ];
 
     protected static function boot() {
