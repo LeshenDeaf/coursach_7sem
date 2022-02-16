@@ -26,3 +26,7 @@ Route::resource(
     'roles',
     \App\Http\Controllers\RoleController::class
 );
+Route::resource(
+    'fields',
+    \App\Http\Controllers\FieldController::class
+);

@@ -9,7 +9,7 @@
                 {{ $value->description }}
             </div>
             <div class="delete_role"><span class="x_del">x</span></div>
-            <input type="hidden" name="roles[]" value="{{ $value->id }}">
+            <input type="hidden" name="{{ $name ?? "roles" }}[]" value="{{ $value->id }}">
         </div>
         @endforeach
     </div>

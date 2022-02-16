@@ -24,13 +24,27 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group([
         'prefix' => 'admin',
         'middleware' => 'is_admin',
-        'as' => 'admin.'
+        'as' => 'admin.',
     ], function () {
         Route::resource(
             'users', \App\Http\Controllers\UserController::class
         );
     });
+
+    Route::group([
+        'prefix' => 'home',
+        'as' => 'home.',
+    ], function () {
+        Route::resource(
+            'forms', \App\Http\Controllers\FormController::class
+        );
+//        Route::resource(
+//            'fields', \App\Http\Controllers\FieldController::class
+//        );
+    });
 });
+
+
 
 Auth::routes();
 
