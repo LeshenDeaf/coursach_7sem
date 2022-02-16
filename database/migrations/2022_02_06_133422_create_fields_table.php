@@ -17,6 +17,7 @@ class CreateFieldsTable extends Migration
             $table->id();
             $table->string('label')->unique();
             $table->string('name')->unique();
+            $table->smallInteger('type');
 
             $table->timestamps();
         });
