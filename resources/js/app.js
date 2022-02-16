@@ -1,73 +1,14 @@
 require('./bootstrap');
 
+localCache = require('./local_cache');
+
+RolesApi = require('./roles_api');
+
 $.ajaxSetup({
     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
 });
 
-const localCache = {
-    data: {},
-    get (url) {
-        return this.data[url];
-    },
-    set (url, value) {
-        this.data[url] = value;
-    },
-    remove (url) {
-        delete this.data[url];
-    },
-    exists (url) {
-        return localCache.data.hasOwnProperty(url) && localCache.data[url] !== null;
-    }
-}
-
-const RolesApi = {
-    url: '/api/roles/',
-
-    getRoles (callback, errCallback) {
-        if (localCache.exists(this.url)) {
-            return callback(localCache.get(this.url));
-        }
-
-        return $.ajax({
-                url: this.url,
-                method: "GET",
-                datatype: "json",
-            })
-            .done(response => {
-                localCache.set(this.url, response);
-                callback(response);
-            })
-            .fail(
-                (jqXHR, textStatus) => errCallback("Request failed: " + textStatus)
-            )
-    },
-
-    appendRole () {
-        const that = this;
-
-        const role = {
-            id: $(that).attr('name'),
-            text: $(that).html()
-        };
-
-        $(this).remove();
-
-        $("#roles").append(
-            `<div class="li_role" name="${role.id}">
-            <div class="role_info">${role.text}</div>
-            <div class="delete_role"><span class="x_del">x</span></div>
-            <input type="hidden" name="roles[]" value="${role.id}"
-            </div>`
-        );
-
-
-    },
-
-    deleteRole () {
-        $(this).parents('.li_role').eq(0).remove();
-    }
-}
-
+const rolesApi = new RolesApi();
 
 const toggleMenu = function () {
     $(this).parents(".relative")
@@ -105,7 +46,7 @@ const fillList = function (div, responseData, listName = 'Roles') {
 $(".add_role").on("click", function() {
     const parent = $(this).parent();
 
-    RolesApi.getRoles(
+    rolesApi.getRoles(
         response => {
             fillList(
                 parent.find('.popup .window'),
@@ -133,8 +74,8 @@ $('body').on('click', function(event){
     }
 });
 
-$(document).on('click', '.delete_role', RolesApi.deleteRole);
+$(document).on('click', '.delete_role', rolesApi.deleteRole);
 
-$(document).on('click', '.append_role', RolesApi.appendRole)
+$(document).on('click', '.append_role', rolesApi.appendRole)
 
 $(() => hideAlert());
