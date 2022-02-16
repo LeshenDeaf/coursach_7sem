@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', "Editing {$user->name}")
+
 @section('content')
     @include('partials.header_text', ['text' => $user->name, 'classes' => 'text-center'])
 
