@@ -7,7 +7,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'ZKH') }}</title>
+    @hasSection('title')
+        <title>@yield('title')</title>
+    @else
+        <title>{{ config('app.name', 'ZKH') }}</title>
+    @endif
+
 
 
     <!-- Scripts -->
