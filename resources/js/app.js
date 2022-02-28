@@ -2,11 +2,27 @@ require('./bootstrap');
 
 localCache = require('./local_cache');
 
-RolesApi = require('./roles_api');
+RolesApi = require('./api/roles_api');
+FieldsApi = require('./api/fields_api');
 
 $.ajaxSetup({
     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
 });
+
+const listProperties = (headerText, suffix) => {
+    return {
+        headerText: headerText,
+        suffix: suffix
+    }
+}
+
+const divData = (div, headerText, elements) => {
+    return {
+        div: div,
+        headerText: headerText,
+        elements: elements
+    }
+}
 
 const rolesApi = new RolesApi();
 
@@ -32,13 +48,14 @@ const togglePopup = function () {
     $(this).parent().find('.popup').toggleClass('hidden');
 }
 
-const fillList = function (div, responseData, listName = 'Roles') {
-    $(div).html(`<h1 class="header_text">${listName}</h1>`);
 
-    responseData.forEach(element =>
-        $(div).append(
-            `<div class="li_role append_role" name="${element.id}">${element.id} - ${element.name} <br> ${element.description}</div>`
-        )
+const fillList = function (divData,
+                           divCreatorCallback
+) {
+    $(divData.div).html(`<h1 class="header_text">${divData.headerText}</h1>`);
+
+    divData.elements.forEach(element =>
+        $(divData.div).append(divCreatorCallback(element))
     );
 }
 
@@ -46,13 +63,17 @@ const fillList = function (div, responseData, listName = 'Roles') {
 $(".add_role").on("click", function() {
     const parent = $(this).parent();
 
-    rolesApi.getRoles(
+    rolesApi.get(
         response => {
             fillList(
-                parent.find('.popup .window'),
-                response.data.filter(element =>
-                    parent.find(`.li_role[name="${element.id}"]`).length === 0
-                )
+                divData(
+                    parent.find('.popup .window'),
+                    'Available roles',
+                    response.data.filter(element =>
+                        parent.find(`.li_role[name="${element.id}"]`).length === 0
+                    )
+                ),
+                RolesApi.fillListCallback
             )
         },
         alert
@@ -74,8 +95,8 @@ $('body').on('click', function(event){
     }
 });
 
-$(document).on('click', '.delete_role', rolesApi.deleteRole);
+$(document).on('click', '.delete_role', rolesApi.remove);
 
-$(document).on('click', '.append_role', rolesApi.appendRole)
+$(document).on('click', '.append_role', rolesApi.append)
 
 $(() => hideAlert());
