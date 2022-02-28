@@ -22,15 +22,14 @@
         <div class="relative">
             @auth
                 <?php
-
                 function getTextColor(string $routeName): string
                 {
-                    $curRouteName = \Route::currentRouteName();
-
-                    return $curRouteName === $routeName ? '700' : '500';
+                    return \Route::currentRouteName() === $routeName
+                        ? '700'
+                        : '500';
                 }
-
                 ?>
+
                 @if(auth()->user()->isAdmin())
                     <a href="{{ route('admin.users.index') }}"
                        class="text-gray-{{ getTextColor('admin.users.index') }} group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
