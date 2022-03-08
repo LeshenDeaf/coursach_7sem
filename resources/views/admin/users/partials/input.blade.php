@@ -1,7 +1,7 @@
 <div class="text-slate-600 p-3">
-    <label>
+    <label class="flex">
         {{ $label }}:
-        <input class="@error( $name ?? '' ) is-invalid @enderror text-slate-800 py-1 px-2 hover:text-blue-900 hover:bg-gray-100 rounded-lg cursor-pointer border-transparent focus:border-transparent focus:ring-0 border-none focus:outline-none"
+        <input class="@error( $name ?? '' ) is-invalid @enderror w-full text-slate-800 py-1 px-2 hover:text-blue-900 hover:bg-gray-100 rounded-lg cursor-pointer border-transparent focus:border-transparent focus:ring-0 border-none focus:outline-none"
                value="{{ $value ?? '' }}"
                placeholder="Not filled"
                name="{{ $name ?? ''}}"
