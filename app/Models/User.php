@@ -55,6 +55,11 @@ class User extends Authenticatable
         return $this->hasMany(Form::class)->orderBy('id');
     }
 
+    public function fields()
+    {
+        return $this->hasMany(Field::class)->orderBy('id');
+    }
+
     public function isAdmin()
     {
         return (bool)$this->roles()
