@@ -6,6 +6,16 @@ const localCache = {
     set (url, value) {
         this.data[url] = value;
     },
+    add (url, value) {
+        if (this.data[url].data === null
+            || this.data[url].data === undefined
+            || !this.data[url].data
+        ) {
+            this.data[url].data = [];
+        }
+
+        this.data[url].data.push(value);
+    },
     remove (url) {
         delete this.data[url];
     },
