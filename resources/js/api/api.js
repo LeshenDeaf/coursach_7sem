@@ -22,12 +22,27 @@ class Api {
             )
     }
 
+    store (sucCallback, errCallback, formData) {
+        return $.ajax({
+            url: this.url,
+            method: "POST",
+            data: formData
+        })
+            .done(response => {
+                localCache.add(this.url, response);
+                sucCallback(response);
+            })
+            .fail(
+                (jqXHR, textStatus) => errCallback("Request failed: " + textStatus)
+            )
+    }
+
     append () {
-        console.log('method is not implemented');
+        console.error('method is not implemented');
     }
 
     remove () {
-        console.log('method is not implemented');
+        console.error('method is not implemented');
     }
 }
 
