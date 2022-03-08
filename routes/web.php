@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome', [
-        'users' => \App\Models\User::find(1),
-        'roles' => \App\Models\Role::find(1),
+        'users' => \App\Models\User::take(1)->get(),
+        'roles' => \App\Models\Role::take(1)->get(),
     ]);
 });
 
@@ -38,9 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource(
             'forms', \App\Http\Controllers\FormController::class
         );
-//        Route::resource(
-//            'fields', \App\Http\Controllers\FieldController::class
-//        );
+        Route::resource(
+            'fields', \App\Http\Controllers\FieldController::class
+        );
     });
 });
 
