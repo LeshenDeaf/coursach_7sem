@@ -20,15 +20,13 @@ class Field extends Model
      * @var string[]
      */
     protected $fillable = [
-        'label', 'type',
+        'label', 'type', 'user_id'
     ];
 
     protected static function boot() {
         parent::boot();
 
-        static::creating(function ($question) {
-            $question->name = Str::slug($question->label);
-        });
+        static::creating(fn ($field) => $field->name = Str::slug($field->label));
     }
 
     public function forms()
