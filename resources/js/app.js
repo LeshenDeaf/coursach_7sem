@@ -25,6 +25,7 @@ const divData = (div, headerText, elements) => {
 }
 
 const rolesApi = new RolesApi();
+const fieldsApi = new FieldsApi();
 
 const toggleMenu = function () {
     $(this).parents(".relative")
@@ -45,7 +46,9 @@ const hideAlert = function () {
 }
 
 const togglePopup = function () {
-    $(this).parent().find('.popup').toggleClass('hidden');
+    $(this).parent()
+        .find('.popup')
+        .toggleClass('hidden');
 }
 
 
@@ -53,6 +56,19 @@ const fillList = function (divData,
                            divCreatorCallback
 ) {
     $(divData.div).html(`<h1 class="header_text">${divData.headerText}</h1>`);
+
+    divData.elements.forEach(element =>
+        $(divData.div).append(divCreatorCallback(element))
+    );
+}
+
+
+const fillFieldList = function (divData,
+                                divCreatorCallback
+) {
+    $(divData.div).html(`<h1 class="header_text">${divData.headerText}</h1>`);
+
+    $(divData.div).append(FieldsApi.createForm);
 
     divData.elements.forEach(element =>
         $(divData.div).append(divCreatorCallback(element))
@@ -80,7 +96,39 @@ $(".add_role").on("click", function() {
     );
 
     togglePopup.call(this);
-});
+})
+
+$('.add_field').on('click', function () {
+    const parent = $(this).parent();
+
+    fieldsApi.get(
+        response => {
+            fillFieldList(
+                divData(
+                    parent.find('.popup .window'),
+                    'Available fields',
+                    response.data.filter(element =>
+                        parent.find(`.li_field[name="${element.id}"]`).length === 0
+                    )
+                ),
+                FieldsApi.fillListCallback
+            )
+        },
+        alert
+    );
+
+    togglePopup.call(this);
+})
+
+$('body').on('click', "#create_field", function (e) {
+    e.preventDefault();
+    console.log('test');
+    fieldsApi.store($(this).parents('form').eq(0).serialize());
+})
+
+$('body').on('click', '.wrap_header', function () {
+    $(this).parent().find('.wrap_body').toggleClass('hidden');
+})
 
 $(".toggle_mobile").on('click', toggleMobileMenu)
 
@@ -89,6 +137,7 @@ $("#toggle_menu").on("click", toggleMenu);
 $('body').on('click', function(event){
     if(!$(event.target).closest('.window').length
         && !$(event.target).is('.add_role')
+        && !$(event.target).is('.add_field')
     ){
         $(".popup").addClass("hidden");
         $('.popup .window').html('')
