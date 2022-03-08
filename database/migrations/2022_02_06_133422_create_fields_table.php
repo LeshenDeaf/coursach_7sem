@@ -15,9 +15,13 @@ class CreateFieldsTable extends Migration
     {
         Schema::create('fields', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->unsigned();
             $table->string('label')->unique();
             $table->string('name')->unique();
             $table->smallInteger('type');
+
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });
