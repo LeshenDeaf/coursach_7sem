@@ -18,7 +18,7 @@ class CreationForm {
     }
 
     static wrap(header, body) {
-        return `<div><div class="wrap_header p-3 text-blue-600 rounded-lg hover:text-blue-800 hover:bg-blue-50">${header}</div><div class="wrap_body hidden">${body}</div></div>`;
+        return `<div><div class="wrap_header border select-none p-3 text-blue-600 rounded-lg hover:text-blue-800 hover:bg-blue-50">${header}</div><div class="wrap_body border border-blue-200 rounded-b-lg border-t-0 p-6 -my-2 mb-6 hidden">${body}</div></div>`;
     }
 
     static fieldCreationInput(label, name) {
