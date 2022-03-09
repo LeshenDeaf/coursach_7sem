@@ -77,20 +77,24 @@ class FieldsApi extends Api {
     append() {
         const that = this;
 
-        const role = {
+        const field = {
             id: $(that).attr('name'),
             text: $(that).html()
         };
 
         $(this).remove();
 
-        $("#roles").append(
-            `<div class="li_role" name="${role.id}">
-            <div class="role_info">${role.text}</div>
-            <div class="delete_role"><span class="x_del">x</span></div>
-            <input type="hidden" name="roles[]" value="${role.id}"
+        $("#fields").append(
+            `<div class="li_field" name="${field.id}">
+            <div class="field_info">${field.text}</div>
+            <div class="delete_field"><span class="x_del">x</span></div>
+            <input type="hidden" name="fields[]" value="${field.id}"
             </div>`
         );
+    }
+
+    remove () {
+        $(this).parents('.li_field').eq(0).remove();
     }
 
     static getTypeLable(type) {
