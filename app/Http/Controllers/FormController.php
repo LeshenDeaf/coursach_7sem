@@ -66,4 +66,15 @@ class FormController extends Controller
 
         return redirect(route('home.forms.index'));
     }
+
+    public function destroy(int $id)
+    {
+        $form = Form::with('fields')->findOrFail($id);
+
+        $form->fields()->detach();
+
+        $form->delete();
+
+        return redirect(route('home.forms.index'));
+    }
 }
