@@ -38,3 +38,7 @@
 .is-invalid {
     @apply border-red-600 #{!important};
 }
+
+.wrap_header.active {
+    @apply box-border text-blue-900 bg-white border-blue-200;
+}
