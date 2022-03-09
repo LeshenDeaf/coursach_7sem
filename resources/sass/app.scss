@@ -8,7 +8,7 @@
     @apply text-slate-800 py-1 px-2 hover:text-blue-900 hover:bg-gray-100 rounded-lg cursor-pointer border-transparent focus:border-transparent focus:ring-0 border-none focus:outline-none flex items-center justify-between;
 
 
-    .delete_role, .remove_field {
+    .delete_role, .delete_field {
         @apply bg-red-400 hover:bg-red-600 text-white content-center justify-center flex;
 
         .x_del {
@@ -17,7 +17,7 @@
     }
 }
 
-.add_role, .delete_role, .add_field, .remove_field {
+.add_role, .delete_role, .add_field, .delete_field {
     @apply w-8 h-8 font-bold text-center  justify-center rounded-full #{!important};
 }
 
