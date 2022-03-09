@@ -1,4 +1,4 @@
-<div class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+<div class="flex justify-between items-center py-6 md:justify-start md:space-x-10">
     <div class="flex justify-start lg:w-0 lg:flex-1">
         <a class="font-bold" href="{{ url('/') }}">
             {{ config('app.name', 'ZKH') }}
