@@ -6,7 +6,9 @@
             <div class="field_info">
                 {{ $field->label }} <span class="text-gray-600">({{ $field->type }})</span>
             </div>
-            <div class="remove_field"><span class="x_del">x</span></div>
+            @if ($canDelete ?? false)
+                <div class="delete_field"><span class="x_del">x</span></div>
+            @endif
             <input type="hidden" name="fields[]" value="{{ $field->id }}">
         </div>
         @endforeach
