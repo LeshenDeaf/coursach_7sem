@@ -16,6 +16,12 @@ class Field extends Model
         'date' => 3,
     ];
 
+    public static array $typeLabels = [
+        'Price' => 1,
+        'Counter value' => 2,
+        'Date' => 3,
+    ];
+
     /**
      * @var string[]
      */
@@ -34,5 +40,9 @@ class Field extends Model
         return $this->belongsToMany(
             Form::class
         )->withTimestamps();
+    }
+
+    public static function getTypeLabel(int $type) {
+        return array_flip(static::$typeLabels)[$type];
     }
 }
