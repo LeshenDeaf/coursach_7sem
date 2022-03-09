@@ -127,6 +127,7 @@ $('body').on('click', "#create_field", function (e) {
 })
 
 $('body').on('click', '.wrap_header', function () {
+    $(this).toggleClass('active');
     $(this).parent().find('.wrap_body').toggleClass('hidden');
 })
 
