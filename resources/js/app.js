@@ -135,17 +135,19 @@ $(".toggle_mobile").on('click', toggleMobileMenu)
 $("#toggle_menu").on("click", toggleMenu);
 
 $('body').on('click', function(event){
-    if(!$(event.target).closest('.window').length
+    if (!$(event.target).closest('.window').length
         && !$(event.target).is('.add_role')
         && !$(event.target).is('.add_field')
-    ){
+    ) {
         $(".popup").addClass("hidden");
         $('.popup .window').html('')
     }
 });
 
+$(document).on('click', '.append_role', rolesApi.append);
 $(document).on('click', '.delete_role', rolesApi.remove);
 
-$(document).on('click', '.append_role', rolesApi.append)
+$(document).on('click', '.append_field', fieldsApi.append);
+$(document).on('click', '.delete_field', fieldsApi.remove);
 
 $(() => hideAlert());
