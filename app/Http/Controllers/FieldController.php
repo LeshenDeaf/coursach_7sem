@@ -32,4 +32,23 @@ class FieldController extends Controller
             'user_id' => $request->user()->id,
         ]);
     }
+
+    public function update(Request $request, int $id)
+    {
+        $field = Field::findOrFail($id);
+
+        $field->update([
+            'label' => $request->label,
+            'type' => $request->type,
+        ]);
+
+        return $field;
+    }
+
+    public function destroy(int $id)
+    {
+        $field = Field::findOrFail($id);
+
+        $field->delete();
+    }
 }
