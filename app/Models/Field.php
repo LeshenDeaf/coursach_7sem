@@ -39,10 +39,19 @@ class Field extends Model
     {
         return $this->belongsToMany(
             Form::class
-        )->withTimestamps();
+        )->withTimestamps()->orderBy('id');
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class)->withTimestamps();
     }
 
     public static function getTypeLabel(int $type) {
         return array_flip(static::$typeLabels)[$type];
+    }
+
+    public static function getTypeName(int $type) {
+        return array_flip(static::$types)[$type];
     }
 }
