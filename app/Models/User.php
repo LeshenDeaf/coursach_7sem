@@ -52,12 +52,17 @@ class User extends Authenticatable
 
     public function forms(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Form::class)->orderBy('id');
+        return $this->hasMany(Form::class)->orderBy('id')->orderBy('id');
     }
 
     public function fields()
     {
-        return $this->hasMany(Field::class)->orderBy('id');
+        return $this->hasMany(Field::class)->orderBy('id')->orderBy('id');
+    }
+
+    public function answers()
+    {
+        return $this->hasManyThrough(Answer::class, Field::class)->orderBy('id');
     }
 
     public function isAdmin()
