@@ -57,7 +57,6 @@ class FieldsApi extends Api {
         3: 'Data'
     }
 
-
     constructor() {
         super('/home/fields/');
     }
@@ -67,11 +66,7 @@ class FieldsApi extends Api {
     }
 
     addToList(response) {
-        $(".popup .window").append(
-            `<div class="li_field append_field" name="${response.id}">
-            ${response.label}: ${FieldsApi.getTypeLable(response.type)} <span class="text-gray-600">(answered times: ${ response.answers_count })</span>
-            </div>`
-        );
+        $(".popup .window").append(FieldsApi.fillListCallback(response));
     }
 
     append() {
@@ -82,7 +77,7 @@ class FieldsApi extends Api {
             text: $(that).html()
         };
 
-        $(this).remove();
+        $(this).parents('.li_field').eq(0).remove();
 
         $("#fields").append(
             `<div class="li_field" name="${field.id}">
@@ -93,8 +88,24 @@ class FieldsApi extends Api {
         );
     }
 
-    remove () {
+    remove() {
         $(this).parents('.li_field').eq(0).remove();
+    }
+
+    destroy(element) {
+        const answersCount = $(element).attr('data');
+
+        if (answersCount > 0) {
+            const confirmed = confirm(`Are you sure?\nThis field is used ${$(element).attr('data')} times\nAll answers will be deleted with it without the possibility recovery`)
+
+            if (!confirmed) {
+                return;
+            }
+        }
+
+        console.log(this.url);
+
+        super.destroy(() => {$(element).parents('.li_field').eq(0).remove()}, alert, $(element).attr('name'))
     }
 
     static getTypeLable(type) {
@@ -102,8 +113,11 @@ class FieldsApi extends Api {
     }
 
     static fillListCallback(element) {
-        return `<div class="li_field append_field" name="${element.id}">
-${element.label}: ${FieldsApi.getTypeLable(element.type)} <span class="text-gray-600">(answered times: ${ element.answers_count })</span>
+        return `<div class="li_field flex_inline"><div class="append_field grow" name="${element.id}">
+${element.label} <span class="text-gray-600">(${FieldsApi.getTypeLable(element.type)})</span>
+</div>
+<div class="text-gray-600 mr-2">(answered times: ${ element.answers_count })</div>
+<div class="destroy_field text-red-600 rounded-lg px-3 py-1 border border-red-400 hover:bg-red-100 hover:text-red-900" data="${ element.answers_count }" name="${ element.id }">Delete</div>
 </div>`;
     }
 
