@@ -44,7 +44,7 @@ class Field extends Model
 
     public function answers()
     {
-        return $this->hasMany(Answer::class)->withTimestamps();
+        return $this->hasMany(Answer::class)->orderBy('id');
     }
 
     public static function getTypeLabel(int $type) {
