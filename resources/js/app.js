@@ -38,13 +38,16 @@ const toggleMobileMenu = function () {
     $("#mobile_menu").toggleClass('hidden');
 }
 
-const hideAlert = function () {
-    setTimeout(() => $('.alert').fadeOut(300,
+const hideAlert = () => setTimeout(
+    () => $('.alert').fadeOut(
+        300,
         function () {
             $(this).slideUp(100, () => $(this).addClass('hidden'));
         }
-    ), 3000);
-}
+    ),
+    3000
+);
+
 
 const togglePopup = function () {
     $(this).parent()
@@ -153,5 +156,6 @@ $(document).on('click', '.delete_role', rolesApi.remove);
 
 $(document).on('click', '.append_field', fieldsApi.append);
 $(document).on('click', '.delete_field', fieldsApi.remove);
+$(document).on('click', '.destroy_field', function () {fieldsApi.destroy(this)});
 
 $(() => hideAlert());
