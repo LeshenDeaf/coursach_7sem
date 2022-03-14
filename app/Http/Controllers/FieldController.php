@@ -55,6 +55,8 @@ class FieldController extends Controller
     {
         $field = Field::findOrFail($id);
 
+        $field->forms()->detach();
+
         $field->delete();
     }
 }
