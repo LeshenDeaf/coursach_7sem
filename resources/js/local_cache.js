@@ -19,6 +19,9 @@ const localCache = {
     remove (url) {
         delete this.data[url];
     },
+    seekAndDestroy (url, id) {
+        this.data[url].data = this.data[url].data.filter(element => element.id !== id);
+    },
     exists (url) {
         return localCache.data.hasOwnProperty(url) && localCache.data[url] !== null;
     }

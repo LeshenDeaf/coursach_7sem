@@ -52,7 +52,7 @@ class Api {
             method: "DELETE"
         })
             .done(response => {
-                localCache.remove(this.url, id);
+                localCache.seekAndDestroy(this.url, id);
                 sucCallback(response);
             })
             .fail(
