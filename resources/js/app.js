@@ -122,8 +122,10 @@ $('.add_field').on('click', function () {
 
 $('body').on('click', "#create_field", function (e) {
     e.preventDefault();
-    console.log('test');
+
     fieldsApi.store($(this).parents('form').eq(0).serialize());
+
+    $(this).parents('form').eq(0).find('input[name="field_name"]').val('');
 })
 
 $('body').on('click', '.wrap_header', function () {
