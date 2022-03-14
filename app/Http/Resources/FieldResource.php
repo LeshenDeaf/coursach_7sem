@@ -19,6 +19,7 @@ class FieldResource extends JsonResource
             'label' => $this->label,
             'name' => $this->name,
             'type' => $this->type,
+            'answers_count' => $this->answers->count(),
             'created_at' => date('d.m.Y H:i:s', strtotime($this->created_at)),
             'updated_at' => date('d.m.Y H:i:s', strtotime($this->updated_at)),
         ];

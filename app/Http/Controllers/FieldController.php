@@ -11,7 +11,9 @@ class FieldController extends Controller
 {
     public function index()
     {
-        return FieldResource::collection(Field::where('user_id', auth()->user()->id)->get());
+        return FieldResource::collection(
+            Field::where('user_id', auth()->user()->id)->get()
+        );
     }
 
     public function show($id)
@@ -26,11 +28,15 @@ class FieldController extends Controller
             'type' => 'required',
         ]);
 
-        return Field::create([
+        $field = Field::create([
             'label' => $request->field_name,
             'type' => $request->type,
             'user_id' => $request->user()->id,
         ]);
+
+        $field->answers_count = 0;
+
+        return $field;
     }
 
     public function update(Request $request, int $id)
