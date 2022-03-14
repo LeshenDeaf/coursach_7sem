@@ -11,7 +11,7 @@
             <form method="post" action="{{ route('home.forms.update', $form->id) }}">
                 @method('PATCH')
                 @csrf
-                <a href="{{ route('home.forms.index') }}"
+                <a href="{{ back() }}"
                    class="inline-block align-baseline font-bold text-sm text-gray-500 hover:text-blue-800 hover:bg-gray-50 px-3 py-1 rounded-xl"
                 >
                     Back
