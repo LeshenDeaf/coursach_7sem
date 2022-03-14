@@ -44,6 +44,21 @@ class Api {
     remove () {
         console.error('method is not implemented');
     }
+
+    destroy (sucCallback, errCallback, id) {
+        console.log(this.url);
+        return $.ajax({
+            url: this.url + id,
+            method: "DELETE"
+        })
+            .done(response => {
+                localCache.remove(this.url, id);
+                sucCallback(response);
+            })
+            .fail(
+                (jqXHR, textStatus) => errCallback("Request failed: " + textStatus)
+            )
+    }
 }
 
 module.exports = Api;
