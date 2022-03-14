@@ -13,6 +13,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 import $ from 'jquery'
 window.jQuery = $;
 window.$ = $;
+import IMask from 'imask';
+window.IMask = IMask;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
