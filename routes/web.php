@@ -41,6 +41,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource(
             'fields', \App\Http\Controllers\FieldController::class
         );
+
+        Route::get(
+            'answers/create/{formId}', [\App\Http\Controllers\AnswerController::class, 'createFromForm']
+        )->name('answers.fill_form');
+        Route::post(
+            'answers/create/{formId}', [\App\Http\Controllers\AnswerController::class, 'storeFromForm']
+        )->name('answers.store_results');
+        Route::resource(
+            'answers', \App\Http\Controllers\AnswerController::class
+        );
     });
 });
 
