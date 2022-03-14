@@ -110,6 +110,10 @@ class AnswerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $answer = Answer::with('fields')->findOrFail($id);
+
+        $answer->delete();
+
+        return true;
     }
 }
