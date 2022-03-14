@@ -4,6 +4,7 @@ localCache = require('./local_cache');
 
 RolesApi = require('./api/roles_api');
 FieldsApi = require('./api/fields_api');
+Masks = require('./masks');
 
 $.ajaxSetup({
     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
