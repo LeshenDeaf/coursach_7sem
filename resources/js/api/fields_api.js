@@ -69,7 +69,7 @@ class FieldsApi extends Api {
     addToList(response) {
         $(".popup .window").append(
             `<div class="li_field append_field" name="${response.id}">
-            <div class="role_info">${response.label} - ${FieldsApi.getTypeLable(response.type)}</div>
+            ${response.label}: ${FieldsApi.getTypeLable(response.type)} <span class="text-gray-600">(answered times: ${ response.answers_count })</span>
             </div>`
         );
     }
@@ -102,7 +102,9 @@ class FieldsApi extends Api {
     }
 
     static fillListCallback(element) {
-        return `<div class="li_field append_field" name="${element.id}">${element.label}: ${FieldsApi.getTypeLable(element.type)}</div>`;
+        return `<div class="li_field append_field" name="${element.id}">
+${element.label}: ${FieldsApi.getTypeLable(element.type)} <span class="text-gray-600">(answered times: ${ element.answers_count })</span>
+</div>`;
     }
 
     static get createForm() {
