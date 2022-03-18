@@ -54,4 +54,9 @@ class Field extends Model
     public static function getTypeName(int $type) {
         return array_flip(static::$types)[$type];
     }
+
+    public static function getTypeByName(string $name) {
+        return static::$types[$name];
+
+    }
 }
