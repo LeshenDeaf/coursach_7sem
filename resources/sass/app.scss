@@ -21,7 +21,12 @@
     @apply w-8 h-8 font-bold text-center  justify-center rounded-full #{!important};
 }
 
-
+.wrap {
+    @apply hover:border-blue-300;
+    .wrap_header {
+        @apply hover:text-blue-600;
+    }
+}
 
 .popup {
     @apply z-10 w-full h-full bg-gray-900 bg-opacity-10 fixed top-0 left-0 ;
@@ -41,4 +46,20 @@
 
 .wrap_header.active {
     @apply box-border text-blue-900 bg-white border-blue-200;
+}
+
+.suggestions {
+    @apply bg-white rounded-b-xl shadow-lg py-3 px-4 -mt-2 select-none;
+    .suggestion {
+        @apply cursor-pointer py-2 px-1 rounded-lg;
+        &:last-of-type {
+            @apply border-0 box-border;
+        }
+        &:hover {
+            @apply bg-gray-100;
+        }
+        &:active {
+            @apply bg-gray-200;
+        }
+    }
 }
