@@ -17,13 +17,19 @@ const localCache = {
         this.data[url].data.push(value);
     },
     remove (url) {
-        delete this.data[url];
+        if (typeof this.data[url] !== 'undefined') {
+            delete this.data[url];
+        }
     },
     seekAndDestroy (url, id) {
+        if (typeof this.data[url] === 'undefined') {
+            return;
+        }
+        id = parseInt(id, 10);
         this.data[url].data = this.data[url].data.filter(element => element.id !== id);
     },
     exists (url) {
-        return localCache.data.hasOwnProperty(url) && localCache.data[url] !== null;
+        return this.data.hasOwnProperty(url) && this.data[url] !== null;
     }
 }
 
