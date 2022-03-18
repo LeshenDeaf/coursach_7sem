@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Resources\FieldResource;
 use App\Models\Field;
@@ -28,11 +29,15 @@ class FieldController extends Controller
             'type' => 'required',
         ]);
 
-        $field = Field::create([
-            'label' => $request->field_name,
-            'type' => $request->type,
-            'user_id' => $request->user()->id,
-        ]);
+        try {
+            $field = Field::create([
+                'label' => $request->field_name,
+                'type' => (int)$request->type,
+                'user_id' => $request->user()->id,
+            ]);
+        } catch (QueryException $e) {
+            return response()->json(['error' => "Field must have unique both type and name"], 400);
+        }
 
         $field->answers_count = 0;
 
