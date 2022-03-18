@@ -21,6 +21,8 @@
     },
     "dependencies": {
         "imask": "^6.4.2",
-        "jquery": "^3.6.0"
+        "jquery": "^3.6.0",
+        "jquery.fias": "git://github.com/fias-api/jquery.git#commit-ish",
+        "kladrapi-for-node": "^0.0.2"
     }
 }
