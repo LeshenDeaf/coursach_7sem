@@ -8,13 +8,13 @@ $fieldTypeLabel = \App\Models\Field::getTypeLabel($field->type);
         <span class="block">{{ $field->label }}:</span>
 
         <input class="@error( $field->name ?? '' ) is-invalid @enderror input_{{ $fieldType }} w-full text-slate-800 py-1 px-2 hover:text-blue-900 hover:bg-gray-100 rounded-lg cursor-pointer border-transparent focus:border-transparent focus:ring-0 border-none focus:outline-none"
-               value="{{ $value ?? '' }}"
+               value="{{ old( $field->name . '_' . $fieldType) }}"
 {{--               placeholder="Not filled"--}}
-               name="{{ $field->name }}"
+               name="{{ $field->name }}_{{ $fieldType }}"
                type="{{ $type ?? 'text' }}"
                placeholder="{{ $fieldTypeLabel }}"
                required
-               autocomplete({{ $field->name }})
+               autocomplete({{ $field->name }}_{{ $fieldType }})
         >
         @error( $field->name ?? '' )
             <span class="invalid-feedback" role="alert">
