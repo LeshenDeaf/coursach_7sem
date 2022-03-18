@@ -33,7 +33,9 @@ class Api {
                 sucCallback(response);
             })
             .fail(
-                (jqXHR, textStatus) => errCallback("Request failed: " + textStatus)
+                (jqXHR, textStatus) => {
+                    errCallback("Request failed: " + jqXHR.responseJSON.error)
+                }
             )
     }
 
@@ -46,7 +48,6 @@ class Api {
     }
 
     destroy (sucCallback, errCallback, id) {
-        console.log(this.url);
         return $.ajax({
             url: this.url + id,
             method: "DELETE"
