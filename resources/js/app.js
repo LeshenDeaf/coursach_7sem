@@ -5,6 +5,7 @@ localCache = require('./local_cache');
 RolesApi = require('./api/roles_api');
 FieldsApi = require('./api/fields_api');
 AnswersApi = require('./api/answers_api');
+const addressesApi = require('./api/addresses_api');
 
 Masks = require('./masks');
 
@@ -140,6 +141,11 @@ $('body').on('click', "#create_field", function (e) {
 $('body').on('click', '.wrap_header', function () {
     $(this).toggleClass('active');
     $(this).parent().find('.wrap_body').toggleClass('hidden');
+    const wrapper = $(this).parents('.wrap');
+
+    if (wrapper.length > 0) {
+        wrapper.toggleClass('border-blue-300');
+    }
 })
 
 $('body').on('click', function(event){
