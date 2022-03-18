@@ -4,6 +4,8 @@ localCache = require('./local_cache');
 
 RolesApi = require('./api/roles_api');
 FieldsApi = require('./api/fields_api');
+AnswersApi = require('./api/answers_api');
+
 Masks = require('./masks');
 
 $.ajaxSetup({
@@ -27,6 +29,7 @@ const divData = (div, headerText, elements) => {
 
 const rolesApi = new RolesApi();
 const fieldsApi = new FieldsApi();
+const answersApi = new AnswersApi();
 
 const toggleMenu = function () {
     $(this).parents(".relative")
@@ -48,13 +51,11 @@ const hideAlert = () => setTimeout(
     3000
 );
 
-
 const togglePopup = function () {
     $(this).parent()
         .find('.popup')
         .toggleClass('hidden');
 }
-
 
 const fillList = function (divData,
                            divCreatorCallback
@@ -124,6 +125,10 @@ $('.add_field').on('click', function () {
     togglePopup.call(this);
 })
 
+$(".toggle_mobile").on('click', toggleMobileMenu)
+
+$("#toggle_menu").on("click", toggleMenu);
+
 $('body').on('click', "#create_field", function (e) {
     e.preventDefault();
 
@@ -136,10 +141,6 @@ $('body').on('click', '.wrap_header', function () {
     $(this).toggleClass('active');
     $(this).parent().find('.wrap_body').toggleClass('hidden');
 })
-
-$(".toggle_mobile").on('click', toggleMobileMenu)
-
-$("#toggle_menu").on("click", toggleMenu);
 
 $('body').on('click', function(event){
     if (!$(event.target).closest('.window').length
@@ -157,5 +158,7 @@ $(document).on('click', '.delete_role', rolesApi.remove);
 $(document).on('click', '.append_field', fieldsApi.append);
 $(document).on('click', '.delete_field', fieldsApi.remove);
 $(document).on('click', '.destroy_field', function () {fieldsApi.destroy(this)});
+
+$(document).on('click', '.destroy_answer', function () {answersApi.destroy(this)});
 
 $(() => hideAlert());
