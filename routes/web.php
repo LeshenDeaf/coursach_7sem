@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +53,10 @@ Route::group(['middleware' => 'auth'], function () {
             'answers', \App\Http\Controllers\AnswerController::class
         );
     });
+});
+
+Route::middleware(['cors'])->group(function () {
+    Route::post('/kladr-api', [AddressController::class, 'getAddresses'])->name('kladr-api');
 });
 
 
