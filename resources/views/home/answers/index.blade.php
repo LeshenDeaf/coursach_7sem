@@ -31,11 +31,10 @@
                             </th>
                         </tr>
                         </thead>
-                        <tr class="bg-white divide-y divide-gray-200">
                         @foreach($grouped as $date => $group)
                             @foreach($group as $index => $answer)
                                 <?php $field = $answer->field; ?>
-                                <tr>
+                                <tr class="bg-white divide-y divide-gray-200">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-gray-900">
                                             {{ $date }}
