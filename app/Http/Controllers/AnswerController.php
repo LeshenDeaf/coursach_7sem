@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\Field;
 use App\Models\Form;
 use Illuminate\Http\Request;
 
@@ -36,6 +37,14 @@ class AnswerController extends Controller
     {
         $form = Form::with('fields')->findOrFail($formId);
 
+        $fields = [];
+
+        foreach ($form->fields as $field) {
+            $fields[$field->type][] = $field;
+        }
+
+        $form->fields = collect($fields);
+
         return view('home.answers.create', compact('form'));
     }
 
@@ -56,11 +65,16 @@ class AnswerController extends Controller
         $fields = $form->fields;
 
         foreach ($fields as $field) {
-            if (!$request->input($field->name)) {
-                return back()->with('error', $field->label . ' is not filled');
+            $typeL = Field::getTypeLabel($field->type);
+            $typeN = Field::getTypeName($field->type);
+
+            $inputName = $field->name . '_' . $typeN;
+            if (!$request->input($inputName)) {
+                return back()->with('error', "$field->label ($typeL) is not filled");
             }
+
             Answer::create([
-                'answer' => $request->input($field->name),
+                'answer' => $request->input($inputName),
                 'field_id' => $field->id,
             ]);
         }
@@ -106,14 +120,12 @@ class AnswerController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+//     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $answer = Answer::with('fields')->findOrFail($id);
+        $answer = Answer::findOrFail($id);
 
         $answer->delete();
-
-        return true;
     }
 }
