@@ -15,6 +15,9 @@
                         <thead class="bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                When answered
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Field
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -24,23 +27,20 @@
                                 Answer
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                When answered
+
                             </th>
                         </tr>
                         </thead>
                         <tr class="bg-white divide-y divide-gray-200">
                         @foreach($grouped as $date => $group)
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap" rowspan="{{ count($group) }}">
-                                    <div class="text-gray-900">
-                                        {{ $date }}
-                                    </div>
-                                </td>
                             @foreach($group as $index => $answer)
                                 <?php $field = $answer->field; ?>
-                                @if($index > 1)
-                                    <tr>
-                                @endif
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-gray-900">
+                                            {{ $date }}
+                                        </div>
+                                    </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="font-medium text-gray-900">
@@ -60,9 +60,13 @@
                                             {{ $answer->answer }}
                                         </div>
                                     </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <button class="destroy_answer text-red-400 hover:text-red-500" value="{{ $answer->id }}">
+                                            {{ __('Delete') }}
+                                        </button>
+                                    </td>
                                 </tr>
                             @endforeach
-                            </tr>
                         @endforeach
                         </tbody>
                     </table>
