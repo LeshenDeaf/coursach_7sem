@@ -26,8 +26,12 @@
 
                 @include('auth.partials.input', ['label' => 'Name', 'name' => 'name', 'value' => old('name'), 'autocomplete' => true, 'isRequired' => true,])
                 @include('auth.partials.input', ['label' => 'E-Mail address', 'type' => 'email', 'name' => 'email', 'value' => old('email'), 'autocomplete' => true, 'isRequired' => true,])
+
+                @include('auth.partials.input', ['label' => 'Address', 'name' => 'address', 'value' => old('address'), 'autocomplete' => false, 'isRequired' => true,])
+
                 @include('auth.partials.input', ['label' => 'Password', 'type' => 'password', 'name' => 'password', 'value' => old('password'), 'isRequired' => true,])
                 @include('auth.partials.input', ['label' => 'Confirm Password', 'type' => 'password', 'name' => 'password_confirmation', 'value' => old('password_confirmation'), 'isRequired' => true,])
+{{--                <label>Тест адреса<input name="address" type="text"></label>--}}
 
 {{--                <div class="row mb-3">--}}
 {{--                    <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('E-Mail Address') }}</label>--}}
