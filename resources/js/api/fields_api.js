@@ -96,14 +96,12 @@ class FieldsApi extends Api {
         const answersCount = $(element).attr('data');
 
         if (answersCount > 0) {
-            const confirmed = confirm(`Are you sure?\nThis field is used ${$(element).attr('data')} times\nAll answers will be deleted with it without the possibility recovery`)
+            const confirmed = confirm(`Are you sure?\nThis field is used ${$(element).attr('data')} times\nAll answers will be deleted with it without the possibility of recovery`)
 
             if (!confirmed) {
                 return;
             }
         }
-
-        console.log(this.url);
 
         super.destroy(() => {$(element).parents('.li_field').eq(0).remove()}, alert, $(element).attr('name'))
     }
