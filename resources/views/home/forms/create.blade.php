@@ -10,7 +10,7 @@
         <div class="rounded-xl bg-white shadow-lg w-1/2 mx-auto px-5 py-6">
             <form method="post" action="{{ route('home.forms.store') }}">
                 @csrf
-                <a href="{{ route('home.forms.index') }}"
+                <a href="{{ redirect()->back()->getTargetUrl() }}"
                    class="inline-block align-baseline font-bold text-sm text-gray-500 hover:text-blue-800 hover:bg-gray-50 px-3 py-1 rounded-xl"
                 >
                     Back
