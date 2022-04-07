@@ -10,7 +10,7 @@ class Answer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'field_id', 'answer',
+        'field_id', 'answer', 'address_id'
     ];
 
     public function forms()
@@ -26,6 +26,11 @@ class Answer extends Model
     public function user()
     {
         return $this->hasOneThrough(User::class, Field::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
     }
 
 }

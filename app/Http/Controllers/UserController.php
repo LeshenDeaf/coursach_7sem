@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Role;
@@ -10,14 +11,14 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('roles')->get();
+        $users = User::with(['roles', 'addresses'])->get();
 
         return view('admin.users.users', compact('users'));
     }
 
     public function show($id)
     {
-        $user = User::with('roles')->findOrFail($id);
+        $user = User::with(['roles', 'addresses'])->findOrFail($id);
         $roles = Role::all();
 
         return view('admin.users.user',
@@ -54,7 +55,9 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
+            'addresses' => 'nullable|array',
+            'addresses.*' => 'string',
         ]);
 
         $user = User::create([
@@ -62,6 +65,20 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ]);
+
+        $addressIds = [];
+
+        foreach ($request->input('addresses') as $address) {
+            $addressId = Address::getOrCreate($address);
+
+            if (!$addressId) {
+                continue;
+            }
+
+            $addressIds[] = $addressId;
+        }
+
+        $user->addresses()->sync($addressIds);
 
         $user->roles()->sync($request->input('roles.*'));
 

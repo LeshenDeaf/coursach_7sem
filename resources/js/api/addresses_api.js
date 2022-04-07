@@ -47,11 +47,16 @@ let timeout;
 
 let oldAddress = '';
 
-$(document).on('input', 'input[name="address"]', function () {
+$(document).on('input', 'input[name="addresses[]"]', function () {
     const address = $(this).val().trim();
     const input = $(this);
 
-    if (!address || address === oldAddress) {
+    if (!address) {
+        input.parents('div').eq(0).find('.suggestions').remove();
+        return;
+    }
+
+    if (address === oldAddress) {
         return;
     }
 
@@ -64,7 +69,7 @@ $(document).on('input', 'input[name="address"]', function () {
 })
 
 $(document).on('click', '.suggestion', function () {
-    const input = $(this).parent().parent().find('input[name="address"]');
+    const input = $(this).parent().parent().find('input[name="addresses[]"]');
 
     if (input.length <= 0) {
         return;

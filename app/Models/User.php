@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'roles',
+        'addresses',
     ];
 
     /**
@@ -65,10 +66,24 @@ class User extends Authenticatable
         return $this->hasManyThrough(Answer::class, Field::class)->orderBy('id');
     }
 
-    public function isAdmin()
+    public function addresses(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return (bool)$this->roles()
-                          ->where('id', Role::ADMIN)
-                          ->first();
+        return $this->belongsToMany(
+            Address::class
+        )->withTimestamps()->orderBy('id');
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->roles()
+                    ->where('id', Role::ADMIN)
+                    ->exists();
+    }
+
+    public function isLiveIn(string $address): bool
+    {
+        return $this->addresses()
+                    ->where('address', $address)
+                    ->exists();
     }
 }

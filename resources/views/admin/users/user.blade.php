@@ -2,8 +2,11 @@
 
 @section('title', "Editing {$user->name}")
 
+
 @section('content')
     @include('partials.header_text', ['text' => $user->name, 'classes' => 'text-center'])
+
+    @include("partials.alerts.alert")
 
     <div class="items-center">
         <div class="rounded-xl bg-white shadow-lg w-1/2 mx-auto px-5 py-6">
@@ -15,9 +18,15 @@
                 >
                     Back
                 </a>
+                <?php
+                $address = '';
+                if ($user->addresses->first()) {
+                    $address =  $user->addresses->first()->address;
+                } ?>
                 @include('admin.users.partials.input', ['label' => 'Name', 'value' => $user->name, 'name' => 'name', 'isRequired' => true])
                 @include('admin.users.partials.input', ['label' => 'Email', 'value' => $user->email, 'name' => 'email', 'isRequired' => true])
                 @include('admin.users.partials.input', ['label' => 'Created at', 'value' => $user->created_at, 'isReadOnly' => true, 'isRequired' => true])
+                @include('admin.users.partials.input', ['label' => 'Address', 'name' => 'addresses[]', 'value' => $address, 'autocomplete' => false, 'isRequired' => true,])
                 @include('admin.users.partials.list_input', ['label' => 'Roles', 'values' => $user->roles])
 
                 <button class="rounded-xl bg-blue-500 text-white w-full py-2 my-2 hover:bg-blue-600 transition shadow-lg hover:shadow-none">

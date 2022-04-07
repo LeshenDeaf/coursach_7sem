@@ -28,6 +28,18 @@
                         Back
                     </a>
 
+                    <div class="text-slate-600 p-3">
+                        <label>
+                            <span class="block">Choose address:</span>
+
+                            <select name="address_id" required>
+                                @foreach($addresses as $address)
+                                    <option value="{{ $address->id }}">{{ $address->address }}</option>
+                                @endforeach
+                            </select>
+                        </label>
+                    </div>
+
                     @foreach(\App\Models\Field::$types as $typeName => $type)
                         @if(!isset($form->fields[$type]))
                             @continue
@@ -42,7 +54,6 @@
                             </div>
 
                         </div>
-
                     @endforeach
 
                     <button class="rounded-xl bg-blue-500 text-white w-full py-2 my-2 hover:bg-blue-600 transition shadow-lg hover:shadow-none">

@@ -35,8 +35,14 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Roles
                             </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Addresses
+                            </th>
                             <th scope="col" class="relative px-6 py-3">
                                 <span class="sr-only">Edit</span>
+                            </th>
+                            <th scope="col" class="relative px-6 py-3">
+                                <span class="sr-only">Delete</span>
                             </th>
                         </tr>
                         </thead>
@@ -52,8 +58,8 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="font-medium text-gray-900">
-                                        {{ $user->name }}
+                                    <div class="font-medium text-gray-900" title="{{ $user->name }}">
+                                        {{ mb_strimwidth($user->name, 0, 20, '...') }}
                                     </div>
                                 </div>
                             </td>
@@ -63,8 +69,8 @@
                                 </div>
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-500">
-                                {{ $user->created_at }}
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-500" title="{{ $user->created_at }}">
+                                {{ date('d.m.Y', strtotime($user->created_at)) }}
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-gray-500">
@@ -74,6 +80,15 @@
                                     </div>
                                 @endforeach
                             </td>
+
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-500">
+                                @foreach($user->addresses as $address)
+                                    <div class="text-gray-900">
+                                        <span class="text-gray-600">{{ $address->id }}</span> - {{ $address->address }}
+                                    </div>
+                                @endforeach
+                            </td>
+
                             <td class="px-6 py-4 whitespace-nowrap text-right font-medium">
                                 <a href="{{ route('admin.users.show', $user->id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
                             </td>

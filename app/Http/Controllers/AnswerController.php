@@ -19,7 +19,7 @@ class AnswerController extends Controller
         $grouped = [];
 
         foreach ($answers as $answer) {
-            $grouped[date('d.m.Y', strtotime($answer->created_at))][] = $answer;
+            $grouped[$answer->address->address][] = $answer;
         }
 
         return view('home.answers.index', compact('answers', 'grouped'));
@@ -36,6 +36,7 @@ class AnswerController extends Controller
     public function createFromForm(int $formId)
     {
         $form = Form::with('fields')->findOrFail($formId);
+        $addresses = auth()->user()->addresses;
 
         $fields = [];
 
@@ -45,7 +46,7 @@ class AnswerController extends Controller
 
         $form->fields = collect($fields);
 
-        return view('home.answers.create', compact('form'));
+        return view('home.answers.create', compact('form', 'addresses'));
     }
 
     public function store(Request $request)
@@ -76,6 +77,7 @@ class AnswerController extends Controller
             Answer::create([
                 'answer' => $request->input($inputName),
                 'field_id' => $field->id,
+                'address_id' => $request->input('address_id')
             ]);
         }
 

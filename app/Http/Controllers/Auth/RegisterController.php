@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -54,6 +55,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'addresses' => ['array', 'min:1'],
+            'addresses.*' => ['string', 'max:512'],
         ]);
     }
 
@@ -65,11 +68,25 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $addressIds = [];
+
+        foreach ($data['addresses'] as $address) {
+            $addressId = Address::getOrCreate($address);
+
+            if (!$addressId) {
+                throw new \Exception('Address is not defined');
+            }
+
+            $addressIds[] = $addressId;
+        }
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $user->addresses()->sync($addressIds);
 
         $user->roles()->attach(Role::ADMIN);
 

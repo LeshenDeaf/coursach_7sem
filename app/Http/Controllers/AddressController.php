@@ -8,7 +8,9 @@ class AddressController extends Controller
 {
     public const LIMIT = 5;
     private const API_KEY = "07fbd62b46521c158b3c90d24d167faaa1ecd205";
+    private const API_SECRET = "4dd6b6a85f691e160072cfdbfc845a0f1631c861";
     private const ADDRESS = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
+    private const ADDRESS_STANDARD = "https://cleaner.dadata.ru/api/v1/clean/address";
 
     public function getAddresses(Request $request)
     {
@@ -40,7 +42,6 @@ class AddressController extends Controller
             ],
         ]);
 
-
         $response = curl_exec($curl);
 
         if ($response === false) {
@@ -51,4 +52,73 @@ class AddressController extends Controller
 
         return $response;
     }
+
+    public static function getAddressFromAPI(string $address)
+    {
+        $curl = curl_init();
+
+        if (!$curl) {
+            return false;
+        }
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>'{"query": "' . $address . '", "count": ' . static::LIMIT . '}',
+            CURLOPT_HTTPHEADER => [
+                'Accept: application/json',
+                'Authorization: Token ' . static::API_KEY,
+                'Content-Type: application/json',
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+
+        if ($response === false) {
+            return ['error' => curl_error($curl)];
+        }
+
+        curl_close($curl);
+
+        return $response;
+    }
+
+    public static function standardAddress(string $address)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => static::ADDRESS_STANDARD,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '["' . $address . '"]',
+            CURLOPT_HTTPHEADER => [
+                'Authorization: Token ' . static::API_KEY,
+                'X-Secret: ' . static::API_SECRET,
+                'Content-Type: application/json'
+            ],
+        ));
+
+        return json_decode(curl_exec($curl), true);
+    }
+
+    public static function checkAddress($address): bool
+    {
+        return is_array($address)
+            ? $address['qc_complete'] === 0
+            : static::standardAddress($address)['qc_complete'] === 0;
+    }
+
+
 }
