@@ -15,7 +15,9 @@ const masks = {
         mask: Number,
         min: 0,
         max: 1000000,
-        thousandsSeparator: ' '
+        thousandsSeparator: ' ',
+        scale: 0,
+        signed: false
     },
     price: {
         mask: Number,
