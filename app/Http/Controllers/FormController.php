@@ -9,7 +9,7 @@ class FormController extends Controller
 {
     public function index()
     {
-        $forms = Form::with('fields')->get();
+        $forms = Form::with('fields')->where('user_id', auth()->id())->get();
 
         if ($forms->isEmpty()) {
             return view('home.forms.create');
@@ -47,7 +47,9 @@ class FormController extends Controller
             $request->input('fields')
         );
 
-        return redirect(route('home.forms.index'));
+        return redirect(
+            route('home.forms.index')
+        )->with('success', 'Form ' . $form->name . ' created');
     }
 
     public function update(Request $request, Form $form)
@@ -64,7 +66,9 @@ class FormController extends Controller
 
         $form->fields()->sync($request->input('fields'));
 
-        return redirect(route('home.forms.index'));
+        return redirect(
+            route('home.forms.index')
+        )->with('success', 'Form ' . $form->name . ' edited');
     }
 
     public function destroy(int $id)
