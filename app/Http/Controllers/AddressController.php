@@ -12,6 +12,16 @@ class AddressController extends Controller
     private const ADDRESS = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
     private const ADDRESS_STANDARD = "https://cleaner.dadata.ru/api/v1/clean/address";
 
+    public const BOUND_TYPES = [
+        'country' => 'Страна',
+        'region' => 'Регион',
+        'area' => 'Район',
+        'city' => 'Город',
+        'settlement' => 'Населенный пункт',
+        'street' => 'Улица',
+        'house' => 'Дом',
+    ];
+
     public function getAddresses(Request $request)
     {
         if (!$request->input('query')) {
@@ -113,7 +123,14 @@ class AddressController extends Controller
         return json_decode(curl_exec($curl), true);
     }
 
-    public static function checkAddress($address): bool
+    public static function isRealAddress($address): bool
+    {
+        return is_array($address)
+            ? (bool)$address['result']
+            : (bool)static::standardAddress($address)['result'];
+    }
+
+    public static function isFullAddress($address): bool
     {
         return is_array($address)
             ? $address['qc_complete'] === 0
