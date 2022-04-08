@@ -41,7 +41,7 @@ class Address extends Model
 
         $address = AddressController::standardAddress($rawAddress);
 
-        if (AddressController::checkAddress($address)) {
+        if (AddressController::isFullAddress($address)) {
             return $address['result'];
         }
 
