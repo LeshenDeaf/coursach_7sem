@@ -21,6 +21,7 @@ class CreateThreadsTable extends Migration
 
             $table->string('title', 128);
             $table->string('slug');
+            $table->foreignId('address_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->longText('text');
 
             $table->timestamps();
