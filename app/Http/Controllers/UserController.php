@@ -69,7 +69,7 @@ class UserController extends Controller
         $addressIds = [];
 
         foreach ($request->input('addresses') as $address) {
-            $addressId = Address::getOrCreate($address);
+            $addressId = Address::getOrCreateFull($address);
 
             if (!$addressId) {
                 continue;
