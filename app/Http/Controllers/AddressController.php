@@ -120,7 +120,7 @@ class AddressController extends Controller
             ],
         ));
 
-        return json_decode(curl_exec($curl), true);
+        return json_decode(curl_exec($curl), true)[0];
     }
 
     public static function isRealAddress($address): bool

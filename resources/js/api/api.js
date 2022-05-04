@@ -22,14 +22,18 @@ class Api {
             )
     }
 
-    store (sucCallback, errCallback, formData) {
+    store (sucCallback, errCallback, formData, useCache = true) {
         return $.ajax({
             url: this.url,
             method: "POST",
-            data: formData
+            data: formData,
+            processData: false,
+            contentType: false
         })
             .done(response => {
-                localCache.add(this.url, response);
+                if (useCache) {
+                    localCache.add(this.url, response);
+                }
                 sucCallback(response);
             })
             .fail(
