@@ -27,6 +27,9 @@
         @apply hover:text-blue-600;
     }
 }
+.wrap_header.active {
+    @apply box-border text-blue-900 bg-white border-blue-200;
+}
 
 .popup {
     @apply z-10 w-full h-full bg-gray-900 bg-opacity-10 fixed top-0 left-0 ;
@@ -44,10 +47,6 @@
     @apply border-red-600 #{!important};
 }
 
-.wrap_header.active {
-    @apply box-border text-blue-900 bg-white border-blue-200;
-}
-
 .suggestions {
     @apply bg-white rounded-b-xl shadow-lg py-3 px-4 -mt-2 select-none;
     .suggestion {
@@ -63,3 +62,27 @@
         }
     }
 }
+
+.comment_form {
+    .comment_input {
+        @apply w-full rounded-lg px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 transition ease-in-out m-0 focus:text-gray-900 focus:bg-white focus:shadow-blue-200 focus:shadow-[0_0_0_3px_rgba(0,0,0,0.3)] focus:outline-none hover:shadow-blue-100 hover:shadow-[0_0_0_3px_rgba(0,0,0,0.3)];
+    }
+    .submit_comment {
+        @apply float-right bg-blue-400 text-white font-bold rounded-lg px-4 py-2 my-2 hover:bg-blue-600 ease-in-out transition-all;
+    }
+    .cancel_comment {
+        @apply mr-3 float-right bg-transparent text-gray-600 font-bold rounded-lg px-4 py-2 my-2 hover:bg-gray-100 ease-in-out transition-all;
+    }
+}
+
+.comment {
+    @apply px-3 py-2;
+    .comment_reply, .reply {
+        @apply text-gray-600 cursor-pointer hover:text-blue-400;
+    }
+}
+
+.highlighted {
+    @apply bg-blue-50 rounded-lg;
+}
+
