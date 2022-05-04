@@ -22,9 +22,9 @@ class Address extends Model
         )->withTimestamps()->orderBy('id');
     }
 
-    public static function getOrCreate($address): int
+    public static function getOrCreateFull($address): int
     {
-        $address = Address::getReal(trim($address));
+        $address = Address::getStandardizedFull(trim($address));
 
         if ($address === '') {
             return 0;
@@ -33,7 +33,18 @@ class Address extends Model
         return Address::firstOrCreate(['address' => $address,])->id;
     }
 
-    public static function getReal(string $rawAddress)
+    public static function getOrCreate($address): int
+    {
+        $address = Address::getStandardized(trim($address));
+
+        if ($address === '') {
+            return 0;
+        }
+
+        return Address::firstOrCreate(['address' => $address,])->id;
+    }
+
+    public static function getStandardizedFull(string $rawAddress)
     {
         if (!$rawAddress) {
             return '';
@@ -42,6 +53,21 @@ class Address extends Model
         $address = AddressController::standardAddress($rawAddress);
 
         if (AddressController::isFullAddress($address)) {
+            return $address['result'];
+        }
+
+        return '';
+    }
+
+    public static function getStandardized(string $rawAddress)
+    {
+        if (!$rawAddress) {
+            return '';
+        }
+
+        $address = AddressController::standardAddress($rawAddress);
+
+        if (AddressController::isRealAddress($address)) {
             return $address['result'];
         }
 
