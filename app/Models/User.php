@@ -80,6 +80,13 @@ class User extends Authenticatable
                     ->exists();
     }
 
+    public function isUK(): bool
+    {
+        return $this->roles()
+            ->where('id', Role::UK_USER)
+            ->exists();
+    }
+
     public function isLiveIn(string $address): bool
     {
         return $this->addresses()
