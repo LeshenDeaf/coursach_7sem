@@ -48,6 +48,12 @@
                    aria-expanded="false">
                     {{ __('Results') }}
                 </a>
+
+                <a href="{{ route('home.forum.index') }}"
+                   class="ml-8 text-gray-{{ getTextColor('home.forum.index') }} group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                   aria-expanded="false">
+                    {{ __('Forum') }}
+                </a>
             @endauth
         </div>
     </nav>
