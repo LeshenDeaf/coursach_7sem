@@ -71,7 +71,7 @@ class RegisterController extends Controller
         $addressIds = [];
 
         foreach ($data['addresses'] as $address) {
-            $addressId = Address::getOrCreate($address);
+            $addressId = Address::getOrCreateFull($address);
 
             if (!$addressId) {
                 throw new \Exception('Address is not defined');
