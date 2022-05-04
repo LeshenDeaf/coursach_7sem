@@ -2,6 +2,7 @@
 
 namespace App\Models\Forum;
 
+use App\Models\Address;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,7 @@ class Thread extends Model
 
     protected $fillable = [
         'category_id', 'user_id',
-        'title', 'text',
+        'title', 'text', 'address_id'
     ];
 
     protected static function boot() {
@@ -35,6 +36,11 @@ class Thread extends Model
     public function comments()
     {
         return $this->hasMany(ThreadComment::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
     }
 
 }
