@@ -10,6 +10,7 @@ class Category extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     protected $fillable = ['name',];
 
     protected static function boot() {
@@ -20,6 +21,6 @@ class Category extends Model
 
     public function threads()
     {
-        return $this->hasMany(Thread::class);
+        return $this->hasMany(Thread::class)->orderBy('id', 'desc');
     }
 }
