@@ -6,6 +6,7 @@ RolesApi = require('./api/roles_api');
 FieldsApi = require('./api/fields_api');
 AnswersApi = require('./api/answers_api');
 const addressesApi = require('./api/addresses_api');
+const commentsApi = require('./api/comments_api');
 
 Masks = require('./masks');
 
