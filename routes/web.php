@@ -52,14 +52,30 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource(
             'answers', \App\Http\Controllers\AnswerController::class
         );
+
+        Route::get(
+            'forum/category/{categorySlug}',
+            [\App\Http\Controllers\Forum\ThreadController::class, 'categoryIndex']
+        )->name('forum.category');
+        Route::get(
+            'forum/address/{addressOd}',
+            [\App\Http\Controllers\Forum\ThreadController::class, 'addressIndex']
+        )->name('forum.address');
+        Route::resource(
+            'forum', \App\Http\Controllers\Forum\ThreadController::class
+        );
+        Route::get(
+            '/forum/{slug}', [\App\Http\Controllers\Forum\ThreadController::class, 'show']
+        )->name('forum.show');
+        Route::post(
+            '/forum/{slug}/comments', [\App\Http\Controllers\Forum\ThreadCommentController::class, 'store']
+        )->name('forum.comments.store');
     });
 });
 
 Route::middleware(['cors'])->group(function () {
     Route::post('/kladr-api', [AddressController::class, 'getAddresses'])->name('kladr-api');
 });
-
-
 
 Auth::routes();
 
