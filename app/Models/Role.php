@@ -9,7 +9,9 @@ class Role extends Model
 {
     use HasFactory;
 
-    const ADMIN = 1;
+    public const ADMIN = 1;
+    public const NORMAL_USER = 2;
+    public const UK_USER = 3;
 
     /**
      * @var string[]
