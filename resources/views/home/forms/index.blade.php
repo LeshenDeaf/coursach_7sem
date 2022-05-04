@@ -9,7 +9,6 @@
 
     @include("partials.header_text", ['text' => __('Forms')])
 
-
     @include("partials.alerts.alert")
 
     <div class="flex flex-row">
