@@ -34,6 +34,16 @@ class ThreadController extends Controller
         return view('home.forum.index', compact('threads', 'categories'));
     }
 
+    public function searchByAddress(string $address)
+    {
+        $address = Address::where('address', $address)->firstOrFail();
+
+        $threads = Thread::where('address_id', $address->id)->get();
+        $categories = Category::all();
+
+        return view('home.forum.index', compact('threads', 'categories'));
+    }
+
     public function create()
     {
         $categories = Category::all();
