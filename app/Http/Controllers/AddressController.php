@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 class AddressController extends Controller
 {
     public const LIMIT = 5;
-    private const API_KEY = "07fbd62b46521c158b3c90d24d167faaa1ecd205";
-    private const API_SECRET = "4dd6b6a85f691e160072cfdbfc845a0f1631c861";
-    private const ADDRESS = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
-    private const ADDRESS_STANDARD = "https://cleaner.dadata.ru/api/v1/clean/address";
 
     public const BOUND_TYPES = [
         'country' => 'Страна',
@@ -35,7 +31,7 @@ class AddressController extends Controller
         }
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
+            CURLOPT_URL => config('api.kladr.address.suggestion'),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -46,9 +42,8 @@ class AddressController extends Controller
             CURLOPT_POSTFIELDS =>'{"query": "' . $request->input('query') . '", "count": ' . static::LIMIT . '}',
             CURLOPT_HTTPHEADER => [
                 'Accept: application/json',
-                'Authorization: Token ' . static::API_KEY,
+                'Authorization: Token ' . config('api.kladr.keys.api_key'),
                 'Content-Type: application/json',
-//                'Cookie: __ddg1=zkRk8yB8GOT6yg53NS2N'
             ],
         ]);
 
@@ -72,7 +67,7 @@ class AddressController extends Controller
         }
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
+            CURLOPT_URL => config('api.kladr.address.suggestion'),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -83,7 +78,7 @@ class AddressController extends Controller
             CURLOPT_POSTFIELDS =>'{"query": "' . $address . '", "count": ' . static::LIMIT . '}',
             CURLOPT_HTTPHEADER => [
                 'Accept: application/json',
-                'Authorization: Token ' . static::API_KEY,
+                'Authorization: Token ' . config('api.kladr.keys.api_key'),
                 'Content-Type: application/json',
             ],
         ]);
@@ -104,7 +99,7 @@ class AddressController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => static::ADDRESS_STANDARD,
+            CURLOPT_URL => config('api.kladr.address.standard'),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -114,8 +109,8 @@ class AddressController extends Controller
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => '["' . $address . '"]',
             CURLOPT_HTTPHEADER => [
-                'Authorization: Token ' . static::API_KEY,
-                'X-Secret: ' . static::API_SECRET,
+                'Authorization: Token ' . config('api.kladr.keys.api_key'),
+                'X-Secret: ' . config('api.kladr.keys.secret_key'),
                 'Content-Type: application/json'
             ],
         ));
