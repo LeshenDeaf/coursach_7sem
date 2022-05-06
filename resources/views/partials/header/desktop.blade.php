@@ -22,11 +22,13 @@
         <div class="relative">
             @auth
                 <?php
-                function getTextColor(string $routeName): string
-                {
-                    return \Route::currentRouteName() === $routeName
-                        ? '700'
-                        : '500';
+                if (!function_exists('getTextColor')) {
+                    function getTextColor(string $routeName): string
+                    {
+                        return \Route::currentRouteName() === $routeName
+                            ? '700'
+                            : '500';
+                    }
                 }
                 ?>
 
