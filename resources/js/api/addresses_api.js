@@ -1,6 +1,6 @@
 const Api = require('./api');
 
-class AddresesApi extends Api {
+class AddressesApi extends Api {
     constructor () {
         super('/kladr-api');
     }
@@ -31,7 +31,9 @@ const fillSuggestions = (response, input) => {
 
     suggestions.html('');
 
-    if (input.val() === response.suggestions[0].value && response.suggestions.length === 1) {
+    if (input.val() === response.suggestions[0].value
+        && response.suggestions.length === 1
+    ) {
         suggestions.remove();
         return;
     }
@@ -41,7 +43,7 @@ const fillSuggestions = (response, input) => {
     }
 }
 
-const addressesApi = new AddresesApi();
+export const addressesApi = new AddressesApi();
 
 let timeout;
 
@@ -75,8 +77,15 @@ $(document).on('click', '.suggestion', function () {
         return;
     }
 
-    input.val($(this).text());
-    input.trigger('input');
-});
+    const prevVal = input.val();
 
-module.exports = addressesApi;
+    input.val($(this).text());
+
+    console.log(prevVal + ' ' + input.val())
+
+    if (prevVal !== input.val()) {
+        input.trigger('input');
+    } else {
+        input.parents('div').eq(0).find('.suggestions').remove();
+    }
+});
