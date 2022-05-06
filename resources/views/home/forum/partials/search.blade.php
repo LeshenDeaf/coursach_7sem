@@ -1,10 +1,10 @@
 <div class="sticky top-4 mx-auto w-[650px]">
     <div class="absolute  w-full">
-        <div class="flex items-end content-end search">
+        <div class="flex items-start content-start search">
             @include('home.forum.partials.address_input', ['label' => 'Address', 'autocomplete' => false, 'isRequired' => true,])
 
             <div class="">
-                <div class="ml-4">
+                <div class="ml-4 mt-6">
                     <button
                         class="find px-6 py-2 border bg-white border-gray-100 text-black rounded-xl shadow-lg hover:bg-gray-100 duration-100 transition-all"
                         type="button"
