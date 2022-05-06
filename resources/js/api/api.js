@@ -1,9 +1,9 @@
 class Api {
-    constructor (url) {
+    constructor(url) {
         this.url = url;
     }
 
-    get (sucCallback, errCallback) {
+    get(sucCallback, errCallback) {
         if (localCache.exists(this.url)) {
             return sucCallback(localCache.get(this.url));
         }
@@ -22,7 +22,28 @@ class Api {
             )
     }
 
-    store (sucCallback, errCallback, formData, useCache = true) {
+    find(sucCallback, errCallback, formData, useCache = true) {
+        return $.ajax({
+            url: this.url,
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false
+        })
+            .done(response => {
+                if (useCache) {
+                    localCache.add(this.url + JSON.stringify(formData), response);
+                }
+                sucCallback(response);
+            })
+            .fail(
+                (jqXHR, textStatus) => {
+                    errCallback("Request failed: " + jqXHR.responseJSON.error)
+                }
+            )
+    }
+
+    store(sucCallback, errCallback, formData, useCache = true) {
         return $.ajax({
             url: this.url,
             method: "POST",
@@ -43,15 +64,15 @@ class Api {
             )
     }
 
-    append () {
+    append() {
         console.error('method is not implemented');
     }
 
-    remove () {
+    remove() {
         console.error('method is not implemented');
     }
 
-    destroy (sucCallback, errCallback, id) {
+    destroy(sucCallback, errCallback, id) {
         return $.ajax({
             url: this.url + id,
             method: "DELETE"
