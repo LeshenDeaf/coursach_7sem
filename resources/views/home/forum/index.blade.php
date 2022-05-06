@@ -4,7 +4,7 @@
 
 @section('content')
 
-    @include("home.forum.partials.search")
+    @include("home.forum.partials.search", ['address' => isset($address) ? $address->address : ''])
 
     <a href="{{ route('home.forum.create') }}"
        class="float-right px-8 py-3 bg-blue-500 text-white rounded-xl shadow-lg hover:bg-blue-700 duration-100 transition-all"
