@@ -35,42 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group([
         'prefix' => 'home',
         'as' => 'home.',
-    ], function () {
-        Route::resource(
-            'forms', \App\Http\Controllers\FormController::class
-        );
-        Route::resource(
-            'fields', \App\Http\Controllers\FieldController::class
-        );
-
-        Route::get(
-            'answers/create/{formId}', [\App\Http\Controllers\AnswerController::class, 'createFromForm']
-        )->name('answers.fill_form');
-        Route::post(
-            'answers/create/{formId}', [\App\Http\Controllers\AnswerController::class, 'storeFromForm']
-        )->name('answers.store_results');
-        Route::resource(
-            'answers', \App\Http\Controllers\AnswerController::class
-        );
-
-        Route::get(
-            'forum/category/{categorySlug}',
-            [\App\Http\Controllers\Forum\ThreadController::class, 'categoryIndex']
-        )->name('forum.category');
-        Route::get(
-            'forum/address/{addressOd}',
-            [\App\Http\Controllers\Forum\ThreadController::class, 'addressIndex']
-        )->name('forum.address');
-        Route::resource(
-            'forum', \App\Http\Controllers\Forum\ThreadController::class
-        );
-        Route::get(
-            '/forum/{slug}', [\App\Http\Controllers\Forum\ThreadController::class, 'show']
-        )->name('forum.show');
-        Route::post(
-            '/forum/{slug}/comments', [\App\Http\Controllers\Forum\ThreadCommentController::class, 'store']
-        )->name('forum.comments.store');
-    });
+    ], __DIR__ . '/web/home/home.php');
 });
 
 Route::middleware(['cors'])->group(function () {
