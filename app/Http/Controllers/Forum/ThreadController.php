@@ -30,18 +30,18 @@ class ThreadController extends Controller
     {
         $threads = Thread::where('address_id', $addressId)->get();
         $categories = Category::all();
+        $address = Address::findOrFail($addressId);
 
-        return view('home.forum.index', compact('threads', 'categories'));
+        return view('home.forum.index', compact('threads', 'categories', 'address'));
     }
 
-    public function searchByAddress(string $address)
+    public function searchByAddress(Request $request)
     {
-        $address = Address::where('address', $address)->firstOrFail();
+        $address = Address::where(
+            'address', $request->input('address')
+        )->firstOrFail();
 
-        $threads = Thread::where('address_id', $address->id)->get();
-        $categories = Category::all();
-
-        return view('home.forum.index', compact('threads', 'categories'));
+        return ['address_id' => $address->id];
     }
 
     public function create()
