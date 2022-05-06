@@ -3,43 +3,27 @@
 @section('title', __('Forum'))
 
 @section('content')
+
+    @include("home.forum.partials.search")
+
     <a href="{{ route('home.forum.create') }}"
        class="float-right px-8 py-3 bg-blue-500 text-white rounded-xl shadow-lg hover:bg-blue-700 duration-100 transition-all"
     >
         Create thread
     </a>
-
     @include("partials.header_text", ['text' => __('Forum')])
 
     @include("partials.alerts.alert")
 
-    <div class="sticky top-10 float-left w-1/6 wrap rounded-xl border border-gray-200 my-4 py-2">
-        <div class="wrap_header text-center text-lg select-none">
-            Categories
-        </div>
-
-        <div class="wrap_body hidden px-8 pt-2">
-            <div class="text-sm font-bold select-none mb-2 border-b py-2 border-b-gray-100 hover:border-b-blue-200">
-                <span class="hover:text-blue-400 transition-all">
-                    <a href="{{ route('home.forum.index') }}">
-                        All
-                    </a>
-                </span>
-            </div>
-
-            @foreach($categories as $category)
-                <div class="text-sm font-bold select-none mb-2 border-b py-2 border-b-gray-100 hover:border-b-blue-200">
-                    <span class="hover:text-blue-400 transition-all">
-                        <a href="{{ route('home.forum.category', $category->slug) }}">
-                            {{ $category->name }}
-                        </a>
-                    </span>
-                </div>
-            @endforeach
-        </div>
-    </div>
+    @include("home.forum.partials.categories", compact('categories'))
 
     <div class="w-[650px] mx-auto mb-8">
+        @if($threads->isEmpty())
+            <div class="my-16 w-full mx-8">
+                <h1 class="text-3xl text-center bold text-slate-800">No threads found :( <br /> <span class="text-slate-900 font-bold">404</span></h1>
+            </div>
+        @endif
+
         <?php
         $startDate = new DateTime(date('Y-m-d H:i:s')); ?>
         @foreach ($threads as $thread)
@@ -51,7 +35,7 @@
                     ? $timeDiff->h . ' hours'
                     : $timeDiff->i . ' minutes')
             ?>
-            <div class="my-8 w-full mx-8">
+            <div class="my-8 w-full mx-0">
                 <div class="w-full bg-blue-100 px-8 py-4 mb-0 rounded-t-lg">
                     <div class="text-sm font-bold select-none mb-2">
                         <span class="hover:text-blue-400 transition-all">
@@ -68,7 +52,8 @@
                         </a>
                     </div>
                 </div>
-                <div class="py-4 align-middle min-w-full sm:px-6 lg:px-8 shadow overflow-hidden border-b border-gray-200 rounded-lg rounded-t-none ">
+                <div
+                    class="py-4 align-middle min-w-full sm:px-6 lg:px-8 shadow overflow-hidden border-b border-gray-200 rounded-lg rounded-t-none ">
                     <div>
                         {{ mb_strimwidth($thread->text, 0, 256, '...') }}
                     </div>
