@@ -1,11 +1,13 @@
 const Api = require('./api');
 
+const cache = require('../local_cache');
+
 class AddressesApi extends Api {
-    constructor () {
+    constructor() {
         super('/kladr-api');
     }
 
-    get (succCallback, errCallback, address) {
+    get(succCallback, errCallback, address) {
         return $.ajax({
             url: this.url,
             method: "POST",
@@ -58,16 +60,42 @@ $(document).on('input', 'input[name="addresses[]"]', function () {
         return;
     }
 
-    if (address === oldAddress) {
+    if (address === oldAddress && input.parents('div').eq(0).find('.suggestions').length > 0) {
         return;
     }
 
     clearTimeout(timeout);
 
     timeout = setTimeout(() => {
-        addressesApi.get(response => fillSuggestions(response, input), alert, address);
+        const cached = cache.get(addressesApi.url + address);
+        if (cached) {
+            fillSuggestions(cached, input)
+        } else {
+            addressesApi.get(response => {
+                cache.set(addressesApi.url + address, response);
+                return fillSuggestions(response, input);
+            }, alert, address, true);
+        }
         oldAddress = address;
-    },200);
+    }, 400);
+})
+
+$(document).on('click', 'input[name="addresses[]"]', function () {
+    const address = $(this).val().trim();
+    const input = $(this);
+
+    const suggestions = input.parents('div').eq(0).find('.suggestions');
+
+    if (!input || !address) {
+        if (suggestions.length > 0) {
+            suggestions.remove();
+        }
+        return;
+    }
+
+    if (suggestions.length <= 0) {
+        input.trigger('input');
+    }
 })
 
 $(document).on('click', '.suggestion', function () {
@@ -87,5 +115,13 @@ $(document).on('click', '.suggestion', function () {
         input.trigger('input');
     } else {
         input.parents('div').eq(0).find('.suggestions').remove();
+    }
+});
+
+$(document).mouseup(function (e) {
+    const container = $(".suggestions").parent().parent();
+
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+        container.find('.suggestions').remove();
     }
 });
