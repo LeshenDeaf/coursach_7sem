@@ -6,8 +6,13 @@ Route::get(
     'category/{categorySlug}',
     [\App\Http\Controllers\Forum\ThreadController::class, 'categoryIndex']
 )->name('category');
+
+Route::post(
+    'address/search',
+    [\App\Http\Controllers\Forum\ThreadController::class, 'searchByAddress']
+)->name('address');
 Route::get(
-    'address/{addressOd}',
+    'address/{addressId}',
     [\App\Http\Controllers\Forum\ThreadController::class, 'addressIndex']
 )->name('address');
 
