@@ -8,6 +8,8 @@ AnswersApi = require('./api/answers_api');
 const addressesApi = require('./api/addresses_api');
 const commentsApi = require('./api/comments_api');
 
+require('./components/search');
+
 Masks = require('./masks');
 
 $.ajaxSetup({
