@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'notifications']], function () {
     Route::group([
         'prefix' => 'admin',
         'middleware' => 'is_admin',
@@ -42,6 +43,8 @@ Route::middleware(['cors'])->group(function () {
     Route::post('/kladr-api', [AddressController::class, 'getAddresses'])->name('kladr-api');
 });
 
+Route::post('/mark-as-read', [HomeController::class, 'markAsRead'])->name('mark-as-read');
+
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
