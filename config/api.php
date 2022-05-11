@@ -10,5 +10,11 @@ return [
             'suggestion' => 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
             'standard' => 'https://cleaner.dadata.ru/api/v1/clean/address',
         ],
-    ]
+    ],
+    'fgis' => [
+        'address' => [
+            'search' => 'https://fgis.gost.ru/fundmetrology/cm/xcdb/vri/select',
+            'get' => 'https://fgis.gost.ru/fundmetrology/cm/iaux/vri/'
+        ]
+    ],
 ];
