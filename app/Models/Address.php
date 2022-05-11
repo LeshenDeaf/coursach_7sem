@@ -17,7 +17,7 @@ class Address extends Model
 
     public function users()
     {
-        $this->belongsToMany(
+        return $this->belongsToMany(
             User::class
         )->withTimestamps()->orderBy('id');
     }
