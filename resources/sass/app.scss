@@ -86,3 +86,18 @@
     @apply bg-blue-50 rounded-lg;
 }
 
+.notifications {
+    @apply relative mr-6;
+}
+
+.notifications_head {
+    @apply cursor-pointer select-none;
+}
+.notifications_body {
+    @apply absolute w-[400px] right-1 z-10 bg-white rounded-lg shadow-lg py-4 px-6 max-h-[450px] overflow-y-scroll;
+}
+
+.notification {
+    @apply px-3 py-1 mb-2 border-b border-gray-300 hover:bg-blue-50 hover:rounded-lg hover:border-blue-50;
+}
+

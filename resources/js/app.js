@@ -9,6 +9,7 @@ const addressesApi = require('./api/addresses_api');
 const commentsApi = require('./api/comments_api');
 
 require('./components/search');
+require('./components/notifications');
 
 Masks = require('./masks');
 
