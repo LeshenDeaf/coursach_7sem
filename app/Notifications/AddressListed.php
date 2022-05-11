@@ -2,60 +2,41 @@
 
 namespace App\Notifications;
 
+use App\Models\Forum\Thread;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class AddressListed extends Notification
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public Thread $thread;
+
+    public function __construct($thread)
     {
-        //
+        $this->thread = $thread;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
-        return ['mail'];
+        return ['database'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
+    public function toDatabase($notifiable): array
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        $user = $this->thread->user;
+        $arr = $this->thread->toArray();
+        $arr["_message"] = "{$user->name} pinned your address in thread";
+
+        return $arr;
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
-        return [
-            //
-        ];
+        $user = $this->thread->user;
+        $arr = $this->thread->toArray();
+        $arr["_message"] = "{$user->name} pinned your address in thread";
+
+        return $arr;
     }
 }
