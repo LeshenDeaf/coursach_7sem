@@ -2,10 +2,15 @@
 
 namespace App\Providers;
 
+use App\Events\AddressListed;
+use App\Events\CommentMade;
+use App\Events\CommentReplied;
+use App\Listeners\SendAddressListedNotification;
+use App\Listeners\SendCommentMadeNotification;
+use App\Listeners\SendCommentRepliedNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,6 +23,15 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        CommentReplied::class => [
+            SendCommentRepliedNotification::class,
+        ],
+        CommentMade::class => [
+            SendCommentMadeNotification::class,
+        ],
+        AddressListed::class => [
+            SendAddressListedNotification::class,
+        ]
     ];
 
     /**
