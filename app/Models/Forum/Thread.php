@@ -43,4 +43,16 @@ class Thread extends Model
         return $this->belongsTo(Address::class);
     }
 
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'category_id' => $this->category_id,
+            'user_id' => $this->user_id,
+            'title' => $this->title,
+            'text' => $this->text,
+            'address_id' => $this->address_id,
+        ];
+    }
+
 }

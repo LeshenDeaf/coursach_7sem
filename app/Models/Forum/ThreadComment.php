@@ -29,4 +29,14 @@ class ThreadComment extends Model
     {
         return $this->belongsTo(ThreadComment::class);
     }
+
+    public function toArray()
+    {
+        return [
+            'thread_id' => $this->thread_id,
+            'user_id' => $this->user_id,
+            'parent_id' => $this->parent_id,
+            'body' => $this->body,
+        ];
+    }
 }
