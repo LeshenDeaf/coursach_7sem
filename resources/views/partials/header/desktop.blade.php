@@ -74,6 +74,8 @@
                 </a>
             @endif
         @else
+            @include('partials.header.notifications', compact('notifications'))
+
             <div class="relative">
                 <button class="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                         aria-expanded="false"
