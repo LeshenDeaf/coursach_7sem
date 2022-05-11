@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Forum;
 
+use App\Events\CommentMade;
+use App\Events\CommentReplied;
 use App\Http\Controllers\Controller;
 use App\Models\Forum\Thread;
 use App\Models\Forum\ThreadComment;
@@ -43,6 +45,7 @@ class ThreadCommentController extends Controller
         ]);
 
         $parentId = $request->input('parent_id');
+
         if ($parentId !== null
             && ThreadComment::firstOrFail('id', $parentId) === null
         ) {
@@ -55,6 +58,12 @@ class ThreadCommentController extends Controller
             'thread_id' => $thread->id,
             'body' => $request->input('body')
         ]);
+
+        event(new CommentMade($comment));
+
+        if ($parentId !== null) {
+            event(new CommentReplied($comment));
+        }
 
         return response([
             'id' => $comment->id,

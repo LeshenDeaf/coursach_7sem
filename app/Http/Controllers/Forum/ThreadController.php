@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Forum;
 
+use App\Events\AddressListed;
 use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Forum\Category;
@@ -92,6 +93,8 @@ class ThreadController extends Controller
             'address_id' => $addressIds[0],
             'user_id' => auth()->id()
         ]);
+
+        event(new AddressListed($thread));
 
         return redirect(route('home.forum.show', $thread->slug))->with('success', 'Thread created!');
     }
