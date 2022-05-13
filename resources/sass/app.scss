@@ -101,3 +101,42 @@
     @apply px-3 py-1 mb-2 border-b border-gray-300 hover:bg-blue-50 hover:rounded-lg hover:border-blue-50;
 }
 
+.addresses {
+    @apply w-[650px] mx-auto;
+    .addresses_title {
+        @apply text-xl text-center;
+    }
+    .address {
+        @apply shadow-lg rounded-lg mt-4;
+        .address_name {
+            @apply text-lg text-center w-full bg-blue-600 text-white rounded-t-lg py-2;
+        }
+        .address_content {
+            @apply px-8 py-4;
+            .counters_title {
+                @apply text-center
+            }
+            .counters {
+                @apply border-b border-t my-2 py-2;
+                .counter {
+                    @apply shadow-md rounded-lg px-4 py-2;
+                    .counter_field {
+                        @apply block h-[30px] clear-both odd:bg-gray-100 px-2 py-0.5 rounded-lg transition-all hover:bg-slate-200;
+                        .counter_field_label {
+                            @apply float-left text-slate-800;
+                        }
+                        .counter_field_value {
+                            @apply float-right text-black font-semibold;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.fck-spinner {
+    background: url("./Spinner-1.2s-221px.svg");
+    background-size: 100%;
+    @apply bg-no-repeat bg-center w-[22px] h-[22px] ;
+}
