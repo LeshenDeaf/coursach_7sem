@@ -10,6 +10,7 @@ const commentsApi = require('./api/comments_api');
 
 require('./components/search');
 require('./components/notifications');
+require('./components/counters');
 
 Masks = require('./masks');
 
