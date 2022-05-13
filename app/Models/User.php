@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,23 +16,14 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'roles',
-        'addresses',
-    ];
+    protected $fillable = ['name', 'email', 'password', 'roles', 'addresses',];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token',];
 
     /**
      * The attributes that should be cast.
@@ -76,8 +66,8 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->roles()
-                    ->where('id', Role::ADMIN)
-                    ->exists();
+            ->where('id', Role::ADMIN)
+            ->exists();
     }
 
     public function isUK(): bool
@@ -90,7 +80,7 @@ class User extends Authenticatable
     public function isLiveIn(string $address): bool
     {
         return $this->addresses()
-                    ->where('address', $address)
-                    ->exists();
+            ->where('address', $address)
+            ->exists();
     }
 }

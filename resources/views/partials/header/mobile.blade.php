@@ -70,7 +70,7 @@
                                     </a>
 
                                     <a class="text-base font-medium text-gray-900 hover:text-gray-700"
-                                       href="{{ route('home') }}"
+                                       href="{{ route('home.index') }}"
                                     >
                                         {{ __('Personal page') }}
                                     </a>

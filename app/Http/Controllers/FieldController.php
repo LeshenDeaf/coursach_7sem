@@ -31,8 +31,8 @@ class FieldController extends Controller
 
         try {
             $field = Field::create([
-                'label' => $request->field_name,
-                'type' => (int)$request->type,
+                'label' => $request->input('field_name'),
+                'type' => (int)$request->input('type'),
                 'user_id' => $request->user()->id,
             ]);
         } catch (QueryException $e) {

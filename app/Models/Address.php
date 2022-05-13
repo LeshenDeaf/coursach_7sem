@@ -12,14 +12,17 @@ class Address extends Model
     use HasFactory;
 
     protected $fillable = [
-        'address'
+        'address',
     ];
 
     public function users()
     {
-        return $this->belongsToMany(
-            User::class
-        )->withTimestamps()->orderBy('id');
+        return $this->belongsToMany(User::class)->withTimestamps()->orderBy('id');
+    }
+
+    public function counters()
+    {
+        return $this->hasMany(Counter::class)->orderBy('id');
     }
 
     public static function getOrCreateFull($address): int
