@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CounterController;
 use App\Http\Controllers\HomeController;
+//use Barryvdh\Debugbar\Facades\Debugbar;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,10 +44,16 @@ Route::group(['middleware' => ['auth', 'notifications']], function () {
 
 Route::middleware(['cors'])->group(function () {
     Route::post('/kladr-api', [AddressController::class, 'getAddresses'])->name('kladr-api');
+
+    Route::group([
+        'prefix' => 'counters',
+        'as' => 'counters.',
+    ], function () {
+        Route::post('search', [CounterController::class, 'search'])->name('search');
+        Route::post('store', [CounterController::class, 'store'])->name('store');
+    });
 });
 
 Route::post('/mark-as-read', [HomeController::class, 'markAsRead'])->name('mark-as-read');
 
 Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
