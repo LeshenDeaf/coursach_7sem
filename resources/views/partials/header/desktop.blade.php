@@ -74,7 +74,7 @@
                 </a>
             @endif
         @else
-            @include('partials.header.notifications', compact('notifications'))
+            @include('partials.header.notifications', ['notifications' => $notifications ?? new \Illuminate\Database\Eloquent\Collection()])
 
             <div class="relative">
                 <button class="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -101,7 +101,7 @@
                             </a>
 
                             <a class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
-                               href="{{ route('home') }}"
+                               href="{{ route('home.index') }}"
                             >
                                 {{ __('Personal page') }}
                             </a>
