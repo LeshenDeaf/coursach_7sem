@@ -22,9 +22,9 @@
 }
 
 .wrap {
-    @apply hover:border-blue-300;
+    @apply hover:border-blue-300 z-10 bg-inherit;
     .wrap_header {
-        @apply hover:text-blue-600;
+        @apply hover:text-blue-600 select-none;
     }
 }
 .wrap_header.active {
