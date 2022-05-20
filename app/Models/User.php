@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ESPlus\ESPlusToken;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -61,6 +62,16 @@ class User extends Authenticatable
         return $this->belongsToMany(
             Address::class
         )->withTimestamps()->orderBy('id');
+    }
+
+    public function esPlusToken(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(ESPlusToken::class);
+    }
+
+    public function hasEsPlusToken(): bool
+    {
+        return $this->esPlusToken()->exists();
     }
 
     public function isAdmin(): bool
