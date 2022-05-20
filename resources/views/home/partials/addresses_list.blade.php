@@ -5,10 +5,11 @@
             <div class="address_name">{{ $address->address }}</div>
             <div class="address_content">
                 <div class="counters_title">Counters for this address</div>
-                @include('home.partials.add_counter', ['counters' => $address->counters])
+                @include('home.partials.counters', ['counters' => $address->counters, 'address_id' => $address->id])
             </div>
         </div>
     @empty
         No addresses :(
     @endforelse
+    <div class="popup hidden"><div class="window"></div></div>
 </div>
