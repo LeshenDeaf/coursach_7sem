@@ -11,7 +11,12 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <?php Barryvdh\Debugbar\Facades\DebugBar::info('hello') ?>
+
+                        @if(!auth()->user()->hasEsPlusToken())
+                            @include('home.partials.auth_esplus')
+                        @endif
+
+                        <?php Barryvdh\Debugbar\Facades\DebugBar::info(auth()->user()->hasEsPlusToken()) ?>
                         @include('home.partials.addresses_list')
                     </div>
                 </div>
