@@ -1,4 +1,4 @@
-<div class="counters">
+<div class="counters" name="{{ $address_id }}">
     @forelse($counters as $counter)
         <div class="counter">
             <div class="counter_field">
@@ -36,3 +36,4 @@
         <div class="no_counters">No counters</div>
     @endforelse
 </div>
+@include('home.partials.add_counter')
