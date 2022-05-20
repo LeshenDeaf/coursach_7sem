@@ -8,6 +8,7 @@
                type="{{ $type ?? 'text' }}"
                {{ ($isReadOnly ?? false) ? 'readonly' : '' }}
                {{ ($isRequired ?? false) ? 'required' : '' }}
+               {{ ($autocomplete ?? true ) ? 'autocomplete' : '' }}
         >
         @error($name)
         <span class="invalid-feedback" role="alert">
