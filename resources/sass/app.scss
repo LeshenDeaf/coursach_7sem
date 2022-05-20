@@ -35,7 +35,7 @@
     @apply z-10 w-full h-full bg-gray-900 bg-opacity-10 fixed top-0 left-0 ;
 
     .window {
-        @apply w-1/2 mx-auto mt-8 bg-white rounded-xl shadow-2xl py-8 px-12 ;
+        @apply w-1/2 mx-auto mt-8 bg-white rounded-xl shadow-2xl py-8 px-12 max-h-[600px] overflow-y-scroll;
     }
 }
 
