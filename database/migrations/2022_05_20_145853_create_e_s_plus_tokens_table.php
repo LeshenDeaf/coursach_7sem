@@ -15,7 +15,7 @@ class CreateESPlusTokensTable extends Migration
                 ->cascadeOnUpdate()->cascadeOnDelete();
 
 //            $table->string('access_token');
-            $table->string('refresh_token');
+            $table->text('refresh_token');
 
             $table->timestamps();
         });
