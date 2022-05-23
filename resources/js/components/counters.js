@@ -44,11 +44,12 @@ const makeCounterPupupItem = (counter, address_id) => {
         vri_id: counter.vri_id,
         register_type: counter['mi.mitnumber'],
         factory_number: counter['mi.number'],
-        verification_date: reformatDate(counter.verification_date)
+        verification_date: reformatDate(counter.verification_date),
+        modification: counter['mi.modification'],
     };
 
     return `
-<div class="li_counter flex_inline my-4 rounded-lg px-4 py-2 hover:bg-gray-100">
+<div class="li_counter flex_inline my-4 rounded-lg px-4 py-2 hover:bg-gray-100 cursor-pointer">
     <div class="choose_counter grow">
         <div class="data hidden">${JSON.stringify(data)}</div>
         <div>
@@ -59,6 +60,9 @@ const makeCounterPupupItem = (counter, address_id) => {
         </div>
         <div>
             <span class="text-gray-600">Дата поверки:</span> ${data.verification_date}
+        </div>
+        <div>
+            <span class="text-gray-600">Модификация СИ:</span> ${data.modification}
         </div>
     </div>
 </div>
