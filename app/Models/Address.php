@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Controllers\AddressController;
+use App\Models\ESPlus\Accrual;
 use App\Models\ESPlus\MainNumber;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,6 +35,17 @@ class Address extends Model
     public function mainNumbers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(MainNumber::class);
+    }
+
+    public function accruals()
+    {
+        $numbers = $this->mainNumbers;
+        $accruals = [];
+        foreach ($numbers as $number) {
+            $accruals[$number->main_number] = $number->accruals;
+        }
+
+        return $accruals;
     }
 
     public static function getOrCreateFull($address): int
