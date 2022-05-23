@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Controllers\AddressController;
+use App\Models\ESPlus\MainNumber;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use function Symfony\Component\Translation\t;
@@ -23,6 +24,16 @@ class Address extends Model
     public function counters()
     {
         return $this->hasMany(Counter::class)->orderBy('id');
+    }
+
+    public function hasMainNumbers(): bool
+    {
+        return $this->mainNumbers()->exists();
+    }
+
+    public function mainNumbers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(MainNumber::class);
     }
 
     public static function getOrCreateFull($address): int
