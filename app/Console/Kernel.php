@@ -24,12 +24,12 @@ class Kernel extends ConsoleKernel
         $dates = Counter::select('valid_until')->get();
 
         foreach ($dates as $date) {
-            $dateC = Carbon::fromSerialized($date->valid_until);
+            $dateC = Carbon::createFromFormat('Y-m-d', $date->valid_until);
 
             $schedule->job(
                 SendCounterExpiredNotification::class
             )->cron(
-                "0 4 {$dateC->day} {$dateC->month} ? {$dateC->year}"
+                "0 4 {$dateC->day} {$dateC->month} *"
             );
         }
 
