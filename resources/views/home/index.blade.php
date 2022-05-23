@@ -14,6 +14,8 @@
 
                         @if(!auth()->user()->hasEsPlusToken())
                             @include('home.partials.auth_esplus')
+                        @else
+                            {{ auth()->user()->esPlusToken->refresh_token }}
                         @endif
 
                         <?php Barryvdh\Debugbar\Facades\DebugBar::info(auth()->user()->hasEsPlusToken()) ?>
