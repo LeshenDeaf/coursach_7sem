@@ -8,6 +8,8 @@ use App\Events\CommentReplied;
 use App\Listeners\SendAddressListedNotification;
 use App\Listeners\SendCommentMadeNotification;
 use App\Listeners\SendCommentRepliedNotification;
+use App\Listeners\SendCounterExpiredNotification;
+use App\Notifications\CounterExpired;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -31,7 +33,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         AddressListed::class => [
             SendAddressListedNotification::class,
-        ]
+        ],
+        CounterExpired::class => [
+            SendCounterExpiredNotification::class,
+        ],
     ];
 
     /**
