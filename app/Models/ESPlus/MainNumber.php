@@ -18,4 +18,14 @@ class MainNumber extends Model
         return $this->belongsTo(Address::class);
     }
 
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
+
+    public function accruals()
+    {
+        return $this->hasManyThrough(Accrual::class, Service::class);
+    }
+
 }
