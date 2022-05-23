@@ -6,7 +6,7 @@ const getDatesQuery = () => {
     const date = new Date();
 
     return {
-        period_from: `${pad2(date.getMonth() + 1)}.${date.getFullYear() - 1}`,
+        period_from: '01.1970',//`${pad2(date.getMonth() + 1)}.${date.getFullYear() - 1}`,
         period_to: `${pad2(date.getMonth() + 1)}.${date.getFullYear()}`
     }
 }
