@@ -12,6 +12,9 @@ require('./components/search');
 require('./components/notifications');
 require('./components/counters');
 
+require('./components/esplus/auth');
+require('./components/esplus/index');
+
 Masks = require('./masks');
 
 $.ajaxSetup({
