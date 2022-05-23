@@ -10,6 +10,20 @@
                         <button class="refresh_accruals" name="{{ $mainNumber->main_number }}">
                             Обновить показатели
                         </button>
+
+
+                    @endforeach
+                    @foreach($address->accruals() as $number => $accruals)
+                        <div class="wrap">
+                            <div class="wrap_header">История и статистика</div>
+                            <div class="wrap_body hidden">
+                                @foreach($accruals as $accrual)
+                                    <div>{{ $accrual }}</div>
+                                @endforeach
+                            </div>
+                        </div>
+
+
                     @endforeach
                 @elseif(auth()->user()->hasEsPlusToken())
                     <button class="get_main_number">Get ES main number</button>
