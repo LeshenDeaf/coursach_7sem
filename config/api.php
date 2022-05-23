@@ -17,4 +17,15 @@ return [
             'get' => 'https://fgis.gost.ru/fundmetrology/cm/iaux/vri/'
         ]
     ],
+    'es_plus' => [
+        'addresses' => [
+            'base' => 'https://lkm.esplus.ru',
+            'login' => '/api/v1/auth/login',
+            'refresh' => '/api/v1/auth/refresh',
+            'numbers' => '/api/v1/object/list',
+            'accruals' => '/api/v1/statistics/accruals',
+            'counters' => '/api/v1/meter/list',
+            'me' => '/api/v1/object/list'
+        ]
+    ]
 ];
